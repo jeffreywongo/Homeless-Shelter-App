@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     public void checkCredentials(View view) {
         String username = userField.getText().toString();
         String password = passField.getText().toString();
-        if (username.equals(userField) && password.equals(passField)) {
+        if (username.equals(usernameTest) && password.equals(passwordTest)) {
             Intent dashboardIntent = new Intent(this, DashboardActivity.class);
             startActivity(dashboardIntent);
             incorrectText.setVisibility(View.INVISIBLE);
