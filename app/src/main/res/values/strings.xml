@@ -6,4 +6,5 @@
     <string name="passwordField">Password</string>
     <string name="usernameField">Username</string>
     <string name="signIn">Sign In</string>
+    <string name="logoutButton">Logout</string>
 </resources>
