@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Homeless-Shelter-App</string>
+    <string name="registerButton">Register</string>
+    <string name="loginButton">Login</string>
+    <string name="incorrectCred">Incorrect Username or Password</string>
+    <string name="passwordField">Password</string>
+    <string name="usernameField">Username</string>
+    <string name="signIn">Sign In</string>
 </resources>
