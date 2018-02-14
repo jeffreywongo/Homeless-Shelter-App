@@ -1,9 +1,11 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,9 +30,21 @@ public class LoginActivity extends AppCompatActivity {
         passField = findViewById(R.id.passwordField);
         incorrectText = findViewById(R.id.incorrectCred);
         incorrectText.setVisibility(View.INVISIBLE);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /*
+    functionality for back button
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
+
+    /*
+    listener for sign in button
+     */
     public void checkCredentials(View view) {
         String username = userField.getText().toString();
         String password = passField.getText().toString();
