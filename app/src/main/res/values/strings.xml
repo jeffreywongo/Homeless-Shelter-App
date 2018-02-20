@@ -8,4 +8,6 @@
     <string name="usernameField">Username</string>
     <string name="signIn">Sign In</string>
     <string name="logoutButton">Logout</string>
+    <string name="nonMatchingPasswords">Passwords Do Not Match</string>
+    <string name="nameField">Legal Name</string>
 </resources>
