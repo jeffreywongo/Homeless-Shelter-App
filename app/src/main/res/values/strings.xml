@@ -10,4 +10,8 @@
     <string name="logoutButton">Logout</string>
     <string name="nonMatchingPasswords">Passwords Do Not Match</string>
     <string name="nameField">Legal Name</string>
+    <string-array name="userTypes">
+        <item>User</item>
+        <item>Admin</item>
+    </string-array>
 </resources>
