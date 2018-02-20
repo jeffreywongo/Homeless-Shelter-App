@@ -1,5 +1,6 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,8 +38,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
-        if (!(passField.equals(passField2))) {
+        if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
             nonMatchingPasswords.setVisibility(View.VISIBLE);
+            return;
         }
+
+        Intent dashboardIntent = new Intent(this, DashboardActivity.class);
+        startActivity(dashboardIntent);
+
     }
 }
