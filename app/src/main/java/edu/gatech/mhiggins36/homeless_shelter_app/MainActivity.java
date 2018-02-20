@@ -28,4 +28,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Will implement register in M5
+
+    public void openRegistrationPage(View view) {
+        Intent registrationIntent = new Intent(this, RegistrationActivity.class);
+        startActivity(registrationIntent);
+    }
+
 }
