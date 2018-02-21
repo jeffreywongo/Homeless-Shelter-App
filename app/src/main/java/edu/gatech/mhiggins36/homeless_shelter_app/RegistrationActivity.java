@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText userField;
+    EditText emailField;
+    EditText nameField;
     EditText passField;
     EditText passField2;
     TextView nonMatchingPasswords;
@@ -21,7 +22,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        userField = findViewById(R.id.usernameFieldReg);
+        nameField = findViewById(R.id.nameFieldReg);
+        emailField = findViewById(R.id.emailFieldReg);
         passField = findViewById(R.id.passwordFieldReg);
         passField2 = findViewById(R.id.passwordFieldReg2);
         nonMatchingPasswords = findViewById(R.id.nonMatchingPasswords);
@@ -42,6 +44,17 @@ public class RegistrationActivity extends AppCompatActivity {
             nonMatchingPasswords.setVisibility(View.VISIBLE);
             return;
         }
+
+        /*
+        check that email is a valid email form
+        check that all fields are filled in
+        */
+
+        User newUser = new User(nameField.getText().toString(),
+                emailField.getText().toString(), passField.getText().toString());
+
+        Controller.addUser(newUser);
+
 
         Intent dashboardIntent = new Intent(this, DashboardActivity.class);
         startActivity(dashboardIntent);
