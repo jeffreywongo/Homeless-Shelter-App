@@ -15,7 +15,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText nameField;
     EditText passField;
     EditText passField2;
-    TextView nonMatchingPasswords;
+    TextView errorMessageReg;
     Spinner userTypeSpinner;
 
     @Override
@@ -26,7 +26,7 @@ public class RegistrationActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailFieldReg);
         passField = findViewById(R.id.passwordFieldReg);
         passField2 = findViewById(R.id.passwordFieldReg2);
-        nonMatchingPasswords = findViewById(R.id.nonMatchingPasswords);
+        errorMessageReg = findViewById(R.id.errorMessageReg);
 
         //stuff needed for the spinner found online
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
@@ -41,10 +41,19 @@ public class RegistrationActivity extends AppCompatActivity {
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
         if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
-            nonMatchingPasswords.setVisibility(View.VISIBLE);
+            errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
-
+        if (emailField.getText().toString().equals("")) {
+            errorMessageReg.setText((CharSequence) "email is empty");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (nameField.getText().toString().equals("")) {
+            errorMessageReg.setText((CharSequence) "name is empty");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
         /*
         check that email is a valid email form
         check that all fields are filled in

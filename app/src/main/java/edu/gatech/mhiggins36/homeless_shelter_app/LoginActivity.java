@@ -48,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
     public void checkCredentials(View view) {
         String username = userField.getText().toString();
         String password = passField.getText().toString();
-        if (username.equals(usernameTest) && password.equals(passwordTest)) {
+
+        //if the username (email) is in the user hash map and the password is the same
+        //password mapped to that email then go to the dashboard
+        if (Controller.userMap.containsKey(username)
+                && Controller.userMap.get(username).getPassword().equals(password)) {
             Intent dashboardIntent = new Intent(this, DashboardActivity.class);
             startActivity(dashboardIntent);
             incorrectText.setVisibility(View.INVISIBLE);
