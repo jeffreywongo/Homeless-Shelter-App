@@ -45,12 +45,17 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
         if (emailField.getText().toString().equals("")) {
-            errorMessageReg.setText((CharSequence) "email is empty");
+            errorMessageReg.setText("email is empty");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
         if (nameField.getText().toString().equals("")) {
-            errorMessageReg.setText((CharSequence) "name is empty");
+            errorMessageReg.setText("name is empty");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (passField.getText().toString().equals("")) {
+            errorMessageReg.setText("no password entered");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
@@ -63,8 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 emailField.getText().toString(), passField.getText().toString());
 
         Controller.addUser(newUser);
-
-
+        
         Intent dashboardIntent = new Intent(this, DashboardActivity.class);
         startActivity(dashboardIntent);
 
