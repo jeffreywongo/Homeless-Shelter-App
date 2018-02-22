@@ -9,11 +9,17 @@ public class User {
     private String password;
     private String name;
     private String email;
+    private String userType;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String userType) {
         this.name = name;
         this.email = email;
-        this. password = password;
+        this.password = password;
+        this.userType = userType;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
@@ -22,5 +28,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 }

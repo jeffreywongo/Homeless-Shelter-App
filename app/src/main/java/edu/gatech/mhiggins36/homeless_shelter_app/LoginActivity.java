@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         if (Controller.userMap.containsKey(username)
                 && Controller.userMap.get(username).getPassword().equals(password)) {
             Intent dashboardIntent = new Intent(this, DashboardActivity.class);
+            dashboardIntent.putExtra("userType", userField.getText().toString());
+            // enables access to type of account
             startActivity(dashboardIntent);
             incorrectText.setVisibility(View.INVISIBLE);
         } else {

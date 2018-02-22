@@ -40,22 +40,33 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
-        if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
+
+        if (nameField.getText().toString().equals("")) {
+            errorMessageReg.setText("Name Is Empty");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
         if (emailField.getText().toString().equals("")) {
-            errorMessageReg.setText("email is empty");
+            errorMessageReg.setText("Email Is Empty");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
-        if (nameField.getText().toString().equals("")) {
-            errorMessageReg.setText("name is empty");
+        if (Controller.userMap.containsKey(emailField.getText().toString())) {
+            errorMessageReg.setText("Email Entered Already In Use");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
         if (passField.getText().toString().equals("")) {
-            errorMessageReg.setText("no password entered");
+            errorMessageReg.setText("No Password Entered");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (passField2.getText().toString().equals("")) {
+            errorMessageReg.setText("Must Re-Enter Password");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
@@ -64,13 +75,20 @@ public class RegistrationActivity extends AppCompatActivity {
         check that all fields are filled in
         */
 
-        User newUser = new User(nameField.getText().toString(),
-                emailField.getText().toString(), passField.getText().toString());
+        User newUser = new User(nameField.getText().toString(), emailField.getText().toString(),
+                passField.getText().toString(), userTypeSpinner.getSelectedItem().toString());
 
         Controller.addUser(newUser);
         
         Intent dashboardIntent = new Intent(this, DashboardActivity.class);
+        dashboardIntent.putExtra("userType", emailField.getText().toString());
+        // enables access to type of account
         startActivity(dashboardIntent);
 
+    }
+
+    public void cancelRegistration(View view) {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
     }
 }
