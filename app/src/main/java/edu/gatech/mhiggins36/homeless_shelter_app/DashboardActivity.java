@@ -52,6 +52,8 @@ public class DashboardActivity extends AppCompatActivity {
     current shelter in the spinner
      */
     public void shelterInfo(View view) {
+        Intent shelterInfoIntent = new Intent(this, ShelterInfoActivity.class);
+        startActivity(shelterInfoIntent);
 
     }
 
