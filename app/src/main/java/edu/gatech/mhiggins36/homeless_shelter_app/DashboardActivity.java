@@ -26,8 +26,22 @@ public class DashboardActivity extends AppCompatActivity {
         String user = intent.getStringExtra("userType");
         String userType = Controller.userMap.get(user).getUserType();
         userTypeMessage.setText("Logged in as a(n) " + userType);
+
+        listShelters();
     }
 
+    /*
+    called on create of the dashboard
+    displays all the shelters on the dashboard
+     */
+    private void listShelters() {
+        for (Shelter s : Controller.shelterMap.values()) {
+            //iterates through all the shelters in the shelter hash map from the controller
+            //not in the same order everytime
+
+
+        }
+    }
     public void logout(View view) {
         Intent logoutIntent = new Intent(this, MainActivity.class);
         startActivity(logoutIntent);
