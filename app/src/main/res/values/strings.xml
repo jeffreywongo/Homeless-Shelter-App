@@ -17,4 +17,19 @@
         <item>User</item>
         <item>Admin</item>
     </string-array>
+    <string-array name="shelters">
+        <item>"My Sister's House"</item>
+        <item>"The Atlanta Day Center for Women &amp; Children"</item>
+        <item>"The Shepherd's Inn"</item>
+        <item>"Fuqua Hall"</item>
+        <item>"Atlanta's Children Center"</item>
+        <item>"Eden Village"</item>
+        <item>"Our House"</item>
+        <item>"Covenant House Georgia"</item>
+        <item>"Nicholas House"</item>
+        <item>"Hope Atlanta"</item>
+        <item>"Gateway Center"</item>
+        <item>"Young Adult Guidance Center"</item>
+        <item>"Homes of Light"</item>
+    </string-array>
 </resources>

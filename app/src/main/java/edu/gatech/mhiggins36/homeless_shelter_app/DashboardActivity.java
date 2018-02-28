@@ -42,10 +42,19 @@ public class DashboardActivity extends AppCompatActivity {
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
         shelterSpinner = findViewById(R.id.shelterSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.userTypes, android.R.layout.simple_spinner_item);
+                R.array.shelters, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shelterSpinner.setAdapter(adapter);
     }
+
+    /*
+    called by the shelterInfo button when the user wants more info on the
+    current shelter in the spinner
+     */
+    public void shelterInfo(View view) {
+
+    }
+
     public void logout(View view) {
         Intent logoutIntent = new Intent(this, MainActivity.class);
         startActivity(logoutIntent);
