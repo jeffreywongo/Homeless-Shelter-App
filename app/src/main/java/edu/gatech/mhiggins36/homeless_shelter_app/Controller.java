@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class Controller {
 
     static HashMap<String, User> userMap = new HashMap<>();
+    static HashMap<>
 
     public static void addUser(User newUser) {
         userMap.put(newUser.getEmail(), newUser);

@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String usernameTest = "user";
-    private static final String passwordTest = "pass";
+//    private static final String usernameTest = "user";
+//    private static final String passwordTest = "pass";
     EditText userField;
     EditText passField;
     TextView incorrectText;
