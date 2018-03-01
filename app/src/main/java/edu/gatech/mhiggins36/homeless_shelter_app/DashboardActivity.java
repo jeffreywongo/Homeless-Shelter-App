@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * App home page
@@ -28,7 +30,11 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Controller.createMapFromcsv();
+        InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_database);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> list = csvFile.read();
+
+        Controller.createMapFromcsv(list);
         setContentView(R.layout.activity_dashboard);
         userTypeMessage = findViewById(R.id.userType);
         logoutButton = findViewById(R.id.logoutButton);

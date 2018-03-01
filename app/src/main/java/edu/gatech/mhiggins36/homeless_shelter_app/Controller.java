@@ -18,13 +18,33 @@ import java.util.List;
 public class Controller {
 
     static HashMap<String, User> userMap = new HashMap<>();
-    static final HashMap<String, Shelter> shelterMap = new HashMap<>();
+    static final HashMap<Integer, Shelter> shelterMap = new HashMap<>();
+
+    public static void createMapFromcsv(List<String[]> list) {
+        Log.d("csv", "here");
+        for (int i = 1; i < list.size(); i++) {
+            int uniqueKey = Integer.parseInt(list.get(i)[0]);
+            String name = list.get(i)[1];
+            int capacity = Integer.parseInt(list.get(i)[2]);
+            String restrictions = list.get(i)[3];
+            float longitude = Float.parseFloat(list.get(i)[4]);
+            float lattitude = Float.parseFloat(list.get(i)[5]);
+            String address = list.get(i)[6];
+            String notes = list.get(i)[7];
+            String phone = list.get(i)[8];
+
+            shelterMap.put(uniqueKey, new Shelter(uniqueKey, name, capacity,
+                    restrictions, longitude, lattitude, address, notes, phone));
+
+
+        }
+    }
 
     /*
     parse the csv file and enter data into shelterMap
-     */
-    public static void createMapFromcsv() {
-        String csvFile = "Homeless_Shelter_Database.csv";
+
+    public static void createMapFromcsv(List shelterList) {
+
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String line = "";
             String cvsSplitBy = ",";
@@ -54,7 +74,7 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 
     public static void addUser(User newUser) {
         userMap.put(newUser.getEmail(), newUser);

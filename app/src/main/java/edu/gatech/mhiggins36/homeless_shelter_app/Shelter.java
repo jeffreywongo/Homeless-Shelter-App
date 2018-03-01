@@ -18,11 +18,11 @@ public class Shelter implements Parcelable{
     private float latitude;
     private String address;
     private String specialNotes;
-    private int phoneNumber;
+    private String phoneNumber;
 
     public Shelter(int uniqueKey, String name, int capacity, String restrictions,
                    float longitude, float latitude, String address, String specialNotes,
-                   int phoneNumber) {
+                   String phoneNumber) {
         this.uniqueKey = uniqueKey;
         this.name = name;
         this.capacity = capacity;
@@ -110,11 +110,11 @@ public class Shelter implements Parcelable{
         this.specialNotes = specialNotes;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -133,7 +133,7 @@ public class Shelter implements Parcelable{
         parcel.writeFloat(this.latitude);
         parcel.writeString(this.address);
         parcel.writeString(this.specialNotes);
-        parcel.writeInt(this.phoneNumber);
+        parcel.writeString(this.phoneNumber);
     }
 
     // Parcelling part
@@ -146,6 +146,6 @@ public class Shelter implements Parcelable{
         this.latitude = in.readFloat();
         this.address = in.readString();
         this.specialNotes = in.readString();
-        this.phoneNumber = in.readInt();
+        this.phoneNumber = in.readString();
     }
 }
