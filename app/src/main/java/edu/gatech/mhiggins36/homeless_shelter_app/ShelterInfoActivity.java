@@ -3,6 +3,7 @@ package edu.gatech.mhiggins36.homeless_shelter_app;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class ShelterInfoActivity extends AppCompatActivity {
@@ -28,6 +29,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
         capacity = findViewById(R.id.capacity);
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
-        System.out.println(shelter.getName());
+
+        name.setText(shelter.getName());
+        address.setText(shelter.getAddress());
+        phoneNumber.setText(shelter.getPhoneNumber());
+        restrictions.setText(shelter.getRestrictions());
+        capacity.setText(shelter.getCapacity());
+        specialNotes.setText(shelter.getSpecialNotes());
     }
 }

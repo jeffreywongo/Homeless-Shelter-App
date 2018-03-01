@@ -12,7 +12,7 @@ import java.util.List;
 public class Shelter implements Parcelable{
     private int uniqueKey;
     private String name;
-    private int capacity;
+    private String capacity;
     private  String restrictions;
     private float longitude;
     private float latitude;
@@ -20,7 +20,7 @@ public class Shelter implements Parcelable{
     private String specialNotes;
     private String phoneNumber;
 
-    public Shelter(int uniqueKey, String name, int capacity, String restrictions,
+    public Shelter(int uniqueKey, String name, String capacity, String restrictions,
                    float longitude, float latitude, String address, String specialNotes,
                    String phoneNumber) {
         this.uniqueKey = uniqueKey;
@@ -62,11 +62,11 @@ public class Shelter implements Parcelable{
         this.name = name;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
@@ -127,7 +127,7 @@ public class Shelter implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(this.uniqueKey);
         parcel.writeString(this.name);
-        parcel.writeInt(this.capacity);
+        parcel.writeString(this.capacity);
         parcel.writeString(this.restrictions);
         parcel.writeFloat(this.longitude);
         parcel.writeFloat(this.latitude);
@@ -140,7 +140,7 @@ public class Shelter implements Parcelable{
     public Shelter(Parcel in){
         this.uniqueKey = in.readInt();
         this.name = in.readString();
-        this.capacity = in.readInt();
+        this.capacity = in.readString();
         this.restrictions = in.readString();
         this.longitude = in.readFloat();
         this.latitude = in.readFloat();

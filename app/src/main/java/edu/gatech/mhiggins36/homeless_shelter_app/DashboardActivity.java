@@ -3,6 +3,7 @@ package edu.gatech.mhiggins36.homeless_shelter_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,11 +46,12 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView dataHolder = view.findViewById(R.id.listItem);
-                String shelterName = dataHolder.toString();
+                String shelterName = (String) dataHolder.getText();
 //                System.out.println(dataHolder.getText().toString());
                 Intent shelterInfoIntent = new Intent(getBaseContext(), ShelterInfoActivity.class);
                 // query shelters hashmap and put the shelter in the intent
-                System.out.println(Controller.shelterMap.get(shelterName));
+                Log.d("devin", shelterName);
+                Log.d("devin", Controller.shelterMap.get(shelterName).getName());
                 shelterInfoIntent.putExtra("Shelter", Controller.shelterMap.get(shelterName));
                 startActivity(shelterInfoIntent);
             }

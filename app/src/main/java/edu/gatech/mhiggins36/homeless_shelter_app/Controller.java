@@ -1,5 +1,6 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
+import android.bluetooth.BluetoothAssignedNumbers;
 import android.util.Log;
 
 import java.io.InputStream;
@@ -17,23 +18,30 @@ import java.util.List;
 
 public class Controller {
 
-    static HashMap<String, User> userMap = new HashMap<>();
-    static final HashMap<Integer, Shelter> shelterMap = new HashMap<>();
+    static HashMap<String, User> userMap = createUserMap();
+    static final HashMap<String, Shelter> shelterMap = new HashMap<>();
 
+
+    public static HashMap<String, User> createUserMap() {
+        HashMap<String, User> u = new HashMap<>();
+        u.put("user", new User("user", "user", "pass", "User"));
+        return u;
+    }
     public static void createMapFromcsv(List<String[]> list) {
         Log.d("csv", "here");
         for (int i = 1; i < list.size(); i++) {
             int uniqueKey = Integer.parseInt(list.get(i)[0]);
             String name = list.get(i)[1];
-            int capacity = Integer.parseInt(list.get(i)[2]);
+            String capacity = list.get(i)[2];
             String restrictions = list.get(i)[3];
+            Log.d("csv", list.get(i)[4]);
             float longitude = Float.parseFloat(list.get(i)[4]);
             float lattitude = Float.parseFloat(list.get(i)[5]);
             String address = list.get(i)[6];
             String notes = list.get(i)[7];
             String phone = list.get(i)[8];
 
-            shelterMap.put(uniqueKey, new Shelter(uniqueKey, name, capacity,
+            shelterMap.put(name, new Shelter(uniqueKey, name, capacity,
                     restrictions, longitude, lattitude, address, notes, phone));
 
 
