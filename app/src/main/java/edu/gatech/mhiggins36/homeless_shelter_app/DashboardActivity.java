@@ -52,6 +52,8 @@ public class DashboardActivity extends AppCompatActivity {
     current shelter in the spinner
      */
     public void shelterInfo(View view) {
+        Shelter selectedShelter = Controller.shelterMap.get(shelterSpinner.getSelectedItem());
+        Controller.setSelectedShelter(selectedShelter);
         Intent shelterInfoIntent = new Intent(this, ShelterInfoActivity.class);
         startActivity(shelterInfoIntent);
 
