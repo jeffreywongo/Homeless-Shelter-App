@@ -30,6 +30,10 @@ public class Controller {
     public static void createMapFromcsv(List<String[]> list) {
         Log.d("csv", "here");
         for (int i = 1; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).length; j++) {
+                Log.d("csv", list.get(i)[j]);
+            }
+            Log.d("csv", "---------------------------------------------------");
             int uniqueKey = Integer.parseInt(list.get(i)[0]);
             String name = list.get(i)[1];
             String capacity = list.get(i)[2];
