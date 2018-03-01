@@ -1,24 +1,27 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by jeffreywongo on 2/27/2018.
  */
 
-public class Shelter {
+public class Shelter implements Parcelable{
     private int uniqueKey;
     private String name;
     private int capacity;
-    private  List<String> restrictions;
+    private  String restrictions;
     private float longitude;
     private float latitude;
     private String address;
-    private List<String> specialNotes;
+    private String specialNotes;
     private int phoneNumber;
 
-    public Shelter(int uniqueKey, String name, int capacity, List<String> restrictions,
-                   float longitude, float latitude, String address, List<String> specialNotes,
+    public Shelter(int uniqueKey, String name, int capacity, String restrictions,
+                   float longitude, float latitude, String address, String specialNotes,
                    int phoneNumber) {
         this.uniqueKey = uniqueKey;
         this.name = name;
@@ -30,6 +33,18 @@ public class Shelter {
         this.specialNotes = specialNotes;
         this.phoneNumber = phoneNumber;
     }
+
+    public static final Creator<Shelter> CREATOR = new Creator<Shelter>() {
+        @Override
+        public Shelter createFromParcel(Parcel in) {
+            return new Shelter(in);
+        }
+
+        @Override
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
 
     public int getUniqueKey() {
         return uniqueKey;
@@ -55,11 +70,11 @@ public class Shelter {
         this.capacity = capacity;
     }
 
-    public List<String> getRestrictions() {
+    public String getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(List<String> restrictions) {
+    public void setRestrictions(String restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -87,11 +102,11 @@ public class Shelter {
         this.address = address;
     }
 
-    public List<String> getSpecialNotes() {
+    public String getSpecialNotes() {
         return specialNotes;
     }
 
-    public void setSpecialNotes(List<String> specialNotes) {
+    public void setSpecialNotes(String specialNotes) {
         this.specialNotes = specialNotes;
     }
 
@@ -101,5 +116,36 @@ public class Shelter {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(this.uniqueKey);
+        parcel.writeString(this.name);
+        parcel.writeInt(this.capacity);
+        parcel.writeString(this.restrictions);
+        parcel.writeFloat(this.longitude);
+        parcel.writeFloat(this.latitude);
+        parcel.writeString(this.address);
+        parcel.writeString(this.specialNotes);
+        parcel.writeInt(this.phoneNumber);
+    }
+
+    // Parcelling part
+    public Shelter(Parcel in){
+        this.uniqueKey = in.readInt();
+        this.name = in.readString();
+        this.capacity = in.readInt();
+        this.restrictions = in.readString();
+        this.longitude = in.readFloat();
+        this.latitude = in.readFloat();
+        this.address = in.readString();
+        this.specialNotes = in.readString();
+        this.phoneNumber = in.readInt();
     }
 }
