@@ -30,11 +30,15 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
 
+        String addressWithCommas = shelter.getAddress().replace('#',',');
+        String notesWithCommas = shelter.getSpecialNotes().replace('#', ',');
+        String restrictionsWithCommas = shelter.getRestrictions().replace('#',',');
+
         name.setText(shelter.getName());
-        address.setText(shelter.getAddress());
+        address.setText(addressWithCommas);
         phoneNumber.setText(shelter.getPhoneNumber());
-        restrictions.setText(shelter.getRestrictions());
+        restrictions.setText(restrictionsWithCommas);
         capacity.setText(shelter.getCapacity());
-        specialNotes.setText(shelter.getSpecialNotes());
+        specialNotes.setText(notesWithCommas);
     }
 }
