@@ -2,6 +2,7 @@ package edu.gatech.mhiggins36.homeless_shelter_app;
 
 import android.util.Log;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 /**
@@ -12,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+
 
 public class Controller {
 
