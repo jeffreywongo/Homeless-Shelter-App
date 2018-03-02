@@ -35,10 +35,9 @@ public class Controller {
             }
             Log.d("csv", "---------------------------------------------------");
             int uniqueKey = Integer.parseInt(list.get(i)[0]);
-            String name = list.get(i)[1];
+            String name = list.get(i)[1].trim();
             String capacity = list.get(i)[2];
             String restrictions = list.get(i)[3];
-            Log.d("csv", list.get(i)[4]);
             float longitude = Float.parseFloat(list.get(i)[4]);
             float lattitude = Float.parseFloat(list.get(i)[5]);
             String address = list.get(i)[6];

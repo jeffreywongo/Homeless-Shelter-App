@@ -36,6 +36,13 @@ public class DashboardActivity extends AppCompatActivity {
         List<String[]> list = csvFile.read();
 
         Controller.createMapFromcsv(list);
+        boolean b = Controller.shelterMap.containsKey("Eden Village ");
+        if (b) {
+            Log.d("devin", " is a key");
+        } else {
+            Log.d("devin", "not a key");
+        }
+
         setContentView(R.layout.activity_dashboard);
         userTypeMessage = findViewById(R.id.userType);
         logoutButton = findViewById(R.id.logoutButton);
@@ -50,8 +57,7 @@ public class DashboardActivity extends AppCompatActivity {
 //                System.out.println(dataHolder.getText().toString());
                 Intent shelterInfoIntent = new Intent(getBaseContext(), ShelterInfoActivity.class);
                 // query shelters hashmap and put the shelter in the intent
-                Log.d("devin", shelterName);
-                Log.d("devin", Controller.shelterMap.get(shelterName).getName());
+                //Log.d("devin", Controller.shelterMap.get(shelterName).getName());
                 shelterInfoIntent.putExtra("Shelter", Controller.shelterMap.get(shelterName));
                 startActivity(shelterInfoIntent);
             }
