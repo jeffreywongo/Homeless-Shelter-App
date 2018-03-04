@@ -13,6 +13,10 @@
     <string name="emailField">Email</string>
     <string name="cancelButton">Cancel</string>
     <string name="userType">TextView</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="enter_shelter_name">Enter shelter name</string>
+    <string name="search">Search</string>
     <string-array name="userTypes">
         <item>User</item>
         <item>Admin</item>

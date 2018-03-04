@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         if (Controller.userMap.containsKey(username)
                 && Controller.userMap.get(username).getPassword().equals(password)) {
             Intent searchIntent = new Intent(this, SearchActivity.class);
+            searchIntent.putExtra("Sender", "LoginActivity");
             searchIntent.putExtra("userType", userField.getText().toString());
             // enables access to type of account
             startActivity(searchIntent);

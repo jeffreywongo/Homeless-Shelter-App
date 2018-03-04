@@ -15,6 +15,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,7 +48,6 @@ public class DashboardActivity extends AppCompatActivity {
         userTypeMessage = findViewById(R.id.userType);
         logoutButton = findViewById(R.id.logoutButton);
         shelterList = findViewById(R.id.shelterList);
-        listShelters();
         // set listener for if an item is clicked
         shelterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,6 +64,20 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+        // check which intent is being handled with this
+        String sender = intent.getStringExtra("Sender");
+        if (sender.equals("SearchActivity")) {
+            String name = intent.getStringExtra("name");
+            String age = intent.getStringExtra("age");
+            String gender = intent.getStringExtra("gender");
+            // if search bar used then disregard spinner selections
+            if (name != null && name.trim().length() != 0) {
+                Log.d("Dash", "called with " + name);
+                listShelters(name, null, null);
+            } else {
+                listShelters(null, age, gender);
+            }
+        }
         String user = intent.getStringExtra("userType");
         String userType = Controller.userMap.get(user).getUserType();
         userTypeMessage.setText("Logged in as a(n) " + userType);
@@ -73,10 +87,50 @@ public class DashboardActivity extends AppCompatActivity {
     called on create of the dashboard
     displays all the shelters on the dashboard
      */
-    private void listShelters() {
-        String[] names = getResources().getStringArray(R.array.shelters);
+    private void listShelters(String name, String age, String gender) {
+//        String[] names = getResources().getStringArray(R.array.shelters);
+        HashMap<String, Shelter> shelters = Controller.shelterMap;
+        List<String> shelterNames = new ArrayList<>();
+        // if searched by name
+        if (name != null) {
+            for (String key : shelters.keySet()) {
+                if (key.contains(name)) {
+                    shelterNames.add(key);
+                }
+            }
+        } else {
+            if (age.equals("Anyone") && !gender.equals("Anyone")) {
+                for (Shelter shelter : shelters.values()) {
+                    String restrictions = shelter.getRestrictions();
+                    if (restrictions.contains(gender)) {
+                        shelterNames.add(shelter.getName());
+                    }
+                }
+            }
+            if (!age.equals("Anyone") && gender.equals("Anyone")) {
+                for (Shelter shelter : shelters.values()) {
+                    String restrictions = shelter.getRestrictions();
+                    if (restrictions.contains(age)) {
+                        shelterNames.add(shelter.getName());
+                    }
+                }
+            }
+            if (age.equals("Anyone") && gender.equals("Anyone")) {
+                for (Shelter shelter : shelters.values()) {
+                    shelterNames.add(shelter.getName());
+                }
+            }
+            if (!age.equals("Anyone") && !gender.equals("Anyone")) {
+                for (Shelter shelter : shelters.values()) {
+                    String restrictions = shelter.getRestrictions();
+                    if (restrictions.contains(age) && restrictions.contains(gender)) {
+                        shelterNames.add(shelter.getName());
+                    }
+                }
+            }
+        }
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
-                R.id.listItem, names);
+                R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
     }
 

@@ -79,8 +79,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 passField.getText().toString(), userTypeSpinner.getSelectedItem().toString());
 
         Controller.addUser(newUser);
-        
+
+        // todo: discuss this later
         Intent searchIntent = new Intent(this, SearchActivity.class);
+        searchIntent.putExtra("Sender", "RegistrationActivity");
         searchIntent.putExtra("userType", emailField.getText().toString());
         // enables access to type of account
         startActivity(searchIntent);

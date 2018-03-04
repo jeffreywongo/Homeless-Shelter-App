@@ -46,7 +46,8 @@ public class SearchActivity extends AppCompatActivity {
         String user = intent.getStringExtra("userType");
         // get the spinner info
 
-        dashboardIntent.putExtra("name", nameSearch.getText());
+        dashboardIntent.putExtra("Sender", "SearchActivity");
+        dashboardIntent.putExtra("name", nameSearch.getText().toString());
         dashboardIntent.putExtra("age", ageSpinner.getSelectedItem().toString());
         dashboardIntent.putExtra("gender", genderSpinner.getSelectedItem().toString());
 
