@@ -32,4 +32,19 @@
         <item>"Young Adult Guidance Center"</item>
         <item>"Homes of Light"</item>
     </string-array>
+    <string-array name="shelterCategories">
+        <item>"Families"</item>
+        <item>"Veterans"</item>
+    </string-array>
+    <string-array name="shelterAge">
+        <item>Children</item>
+        <item>Children under 5</item>
+        <item>newborns</item>
+        <item>Young adults</item>
+    </string-array>
+    <string-array name="shelterGenders">
+        <item>"Men"</item>
+        <item>"Women"</item>
+        <item>"Other"</item>
+    </string-array>
 </resources>
