@@ -53,10 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         //password mapped to that email then go to the dashboard
         if (Controller.userMap.containsKey(username)
                 && Controller.userMap.get(username).getPassword().equals(password)) {
-            Intent dashboardIntent = new Intent(this, DashboardActivity.class);
-            dashboardIntent.putExtra("userType", userField.getText().toString());
+            Intent searchIntent = new Intent(this, SearchActivity.class);
+            searchIntent.putExtra("userType", userField.getText().toString());
             // enables access to type of account
-            startActivity(dashboardIntent);
+            startActivity(searchIntent);
             incorrectText.setVisibility(View.INVISIBLE);
         } else {
             incorrectText.setVisibility(View.VISIBLE);

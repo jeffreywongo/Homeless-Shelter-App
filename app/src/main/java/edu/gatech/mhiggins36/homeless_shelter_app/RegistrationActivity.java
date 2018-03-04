@@ -80,10 +80,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Controller.addUser(newUser);
         
-        Intent dashboardIntent = new Intent(this, DashboardActivity.class);
-        dashboardIntent.putExtra("userType", emailField.getText().toString());
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        searchIntent.putExtra("userType", emailField.getText().toString());
         // enables access to type of account
-        startActivity(dashboardIntent);
+        startActivity(searchIntent);
 
     }
 
