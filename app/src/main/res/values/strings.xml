@@ -37,12 +37,14 @@
         <item>"Veterans"</item>
     </string-array>
     <string-array name="shelterAge">
+        <item>Anyone</item>
         <item>Children</item>
         <item>Children under 5</item>
         <item>newborns</item>
         <item>Young adults</item>
     </string-array>
     <string-array name="shelterGenders">
+        <item>Anyone</item>
         <item>"Men"</item>
         <item>"Women"</item>
         <item>"Other"</item>
