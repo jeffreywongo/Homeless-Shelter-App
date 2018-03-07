@@ -14,6 +14,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView restrictions;
     TextView specialNotes;
     TextView capacity;
+    TextView latlong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,14 @@ public class ShelterInfoActivity extends AppCompatActivity {
         restrictions = findViewById(R.id.restrictions);
         specialNotes = findViewById(R.id.specialNotes);
         capacity = findViewById(R.id.capacity);
+        latlong = findViewById(R.id.latlong);
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
 
         String addressWithCommas = shelter.getAddress().replace('#',',');
         String notesWithCommas = shelter.getSpecialNotes().replace('#', ',');
         String restrictionsWithCommas = shelter.getRestrictions().replace('#',',');
+        String gpsLocation = shelter.getLatitude() + "/" + shelter.getLongitude();
 
         name.setText(shelter.getName());
         address.setText(addressWithCommas);
@@ -40,5 +43,6 @@ public class ShelterInfoActivity extends AppCompatActivity {
         restrictions.setText(restrictionsWithCommas);
         capacity.setText(shelter.getCapacity());
         specialNotes.setText(notesWithCommas);
+        latlong.setText(gpsLocation);
     }
 }
