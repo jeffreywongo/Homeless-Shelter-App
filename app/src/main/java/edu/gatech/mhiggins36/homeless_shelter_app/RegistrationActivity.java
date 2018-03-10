@@ -40,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
+        //TODO talk about when we want to trim and when not
 
         if (nameField.getText().toString().trim().equals("")) {
             errorMessageReg.setText("Name Is Empty");
@@ -51,7 +52,15 @@ public class RegistrationActivity extends AppCompatActivity {
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
-        if (Controller.userMap.containsKey(emailField.getText().toString())) {
+        //checks if the email is in an email format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailField.getText().toString().trim()).matches()) {
+            errorMessageReg.setText("Email format is not valid");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return;
+        }
+
+
+        if (Controller.userMap.containsKey(emailField.getText().toString().trim())) {
             errorMessageReg.setText("Email Entered Already In Use");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
