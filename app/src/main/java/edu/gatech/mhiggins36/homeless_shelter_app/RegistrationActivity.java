@@ -41,12 +41,12 @@ public class RegistrationActivity extends AppCompatActivity {
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
 
-        if (nameField.getText().toString().equals("")) {
+        if (nameField.getText().toString().trim().equals("")) {
             errorMessageReg.setText("Name Is Empty");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
-        if (emailField.getText().toString().equals("")) {
+        if (emailField.getText().toString().trim().equals("")) {
             errorMessageReg.setText("Email Is Empty");
             errorMessageReg.setVisibility(View.VISIBLE);
             return;

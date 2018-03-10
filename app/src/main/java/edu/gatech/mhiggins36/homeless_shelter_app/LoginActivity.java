@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     listener for sign in button
      */
     public void checkCredentials(View view) {
-        String username = userField.getText().toString();
+        String username = userField.getText().toString().trim();
         String password = passField.getText().toString();
 
         //if the username (email) is in the user hash map and the password is the same
