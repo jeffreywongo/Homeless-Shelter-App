@@ -47,8 +47,14 @@ public class LoginActivity extends AppCompatActivity {
     listener for sign in button
      */
     public void checkCredentials(View view) {
-        String username = userField.getText().toString();
+        String username = userField.getText().toString().trim();
         String password = passField.getText().toString();
+
+//        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+//            //incorrectText.setText("Email format is not valid");
+//            incorrectText.setVisibility(View.VISIBLE);
+//            return;
+//        }
 
         //if the username (email) is in the user hash map and the password is the same
         //password mapped to that email then go to the dashboard
