@@ -1,4 +1,4 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.models;
 
 /**
  * Created by mhigg on 2/21/2018.

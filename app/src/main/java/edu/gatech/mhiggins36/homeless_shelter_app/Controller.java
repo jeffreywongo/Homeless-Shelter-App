@@ -1,25 +1,23 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
-import android.bluetooth.BluetoothAssignedNumbers;
 import android.util.Log;
 
-import java.io.InputStream;
 import java.util.HashMap;
 
 /**
  * Created by mhigg on 2/21/2018.
  */
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
+
+import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
+import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 
 public class Controller {
 
-    static HashMap<String, User> userMap = createUserMap();
-    static final HashMap<String, Shelter> shelterMap = new HashMap<>();
+    public static HashMap<String, User> userMap = createUserMap();
+    public static final HashMap<String, Shelter> shelterMap = new HashMap<>();
 
 
     public static HashMap<String, User> createUserMap() {

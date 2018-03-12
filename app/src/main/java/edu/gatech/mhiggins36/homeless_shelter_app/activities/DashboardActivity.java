@@ -1,4 +1,4 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +9,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import edu.gatech.mhiggins36.homeless_shelter_app.CSVFile;
+import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
+import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 /**
  * App home page

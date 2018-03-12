@@ -1,9 +1,7 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.List;
 
 /**
  * Created by jeffreywongo on 2/27/2018.

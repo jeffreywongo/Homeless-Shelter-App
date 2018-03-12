@@ -1,4 +1,4 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
+import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 public class RegistrationActivity extends AppCompatActivity {
 

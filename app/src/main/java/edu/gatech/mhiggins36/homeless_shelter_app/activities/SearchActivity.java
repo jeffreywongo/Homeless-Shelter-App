@@ -1,4 +1,4 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.activities.DashboardActivity;
 
 public class SearchActivity extends AppCompatActivity {
 

@@ -1,7 +1,5 @@
-package edu.gatech.mhiggins36.homeless_shelter_app;
+package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
+import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
 /**
  * Checks login credentials
