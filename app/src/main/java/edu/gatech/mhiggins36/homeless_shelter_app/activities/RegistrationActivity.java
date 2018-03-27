@@ -131,6 +131,8 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
                 // Error handling
+                errorMessageReg.setText("Email Entered Already In Use");
+                errorMessageReg.setVisibility(View.VISIBLE);
                 System.out.println("Something went wrong!");
                 error.printStackTrace();
 
