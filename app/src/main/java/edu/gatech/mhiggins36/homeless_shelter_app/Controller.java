@@ -19,7 +19,6 @@ public class Controller {
     public static HashMap<String, User> userMap = createUserMap();
     public static final HashMap<String, Shelter> shelterMap = new HashMap<>();
 
-
     public static HashMap<String, User> createUserMap() {
         HashMap<String, User> u = new HashMap<>();
         u.put("user", new User("user", "user", "pass", "User"));

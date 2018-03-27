@@ -9,8 +9,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -63,12 +76,12 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-
-        if (Controller.userMap.containsKey(emailField.getText().toString().trim())) {
-            errorMessageReg.setText("Email Entered Already In Use");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
+        //todo check if the username is already taken
+//        if (Controller.userMap.containsKey(emailField.getText().toString().trim())) {
+//            errorMessageReg.setText("Email Entered Already In Use");
+//            errorMessageReg.setVisibility(View.VISIBLE);
+//            return;
+//        }
         if (passField.getText().toString().equals("")) {
             errorMessageReg.setText("No Password Entered");
             errorMessageReg.setVisibility(View.VISIBLE);
@@ -88,17 +101,53 @@ public class RegistrationActivity extends AppCompatActivity {
         check that all fields are filled in
         */
 
-        User newUser = new User(nameField.getText().toString(), emailField.getText().toString(),
-                passField.getText().toString(), userTypeSpinner.getSelectedItem().toString());
+//        User newUser = new User(nameField.getText().toString(), emailField.getText().toString(),
+//                passField.getText().toString(), userTypeSpinner.getSelectedItem().toString());
+//
+//        Controller.addUser(newUser);
 
-        Controller.addUser(newUser);
+        //ToDo get the specific path for this call
+        String url = "http://shelter.lmc.gatech.edu/user";
 
-        // todo: discuss this later
-        Intent searchIntent = new Intent(this, SearchActivity.class);
-        searchIntent.putExtra("Sender", "RegistrationActivity");
-        searchIntent.putExtra("userType", emailField.getText().toString());
-        // enables access to type of account
-        startActivity(searchIntent);
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        // todo: discuss this later
+                        Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                        searchIntent.putExtra("Sender", "RegistrationActivity");
+                        searchIntent.putExtra("userType", emailField.getText().toString());
+                        // enables access to type of account
+                        startActivity(searchIntent);
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", nameField.getText().toString().trim());
+                params.put("email", emailField.getText().toString().trim());
+                params.put("password", passField.getText().toString());
+                return params;
+            }
+        };
+        // Add the request to the queue
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
     }
 

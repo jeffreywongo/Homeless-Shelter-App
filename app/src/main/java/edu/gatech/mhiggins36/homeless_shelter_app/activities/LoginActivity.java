@@ -8,8 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 
 /**
  * Checks login credentials
@@ -58,17 +69,50 @@ public class LoginActivity extends AppCompatActivity {
 
         //if the username (email) is in the user hash map and the password is the same
         //password mapped to that email then go to the dashboard
-        if (Controller.userMap.containsKey(username)
-                && Controller.userMap.get(username).getPassword().equals(password)) {
-            Intent searchIntent = new Intent(this, SearchActivity.class);
-            searchIntent.putExtra("Sender", "LoginActivity");
-            searchIntent.putExtra("userType", userField.getText().toString());
-            // enables access to type of account
-            startActivity(searchIntent);
-            incorrectText.setVisibility(View.INVISIBLE);
-        } else {
-            incorrectText.setVisibility(View.VISIBLE);
-        }
+//        if (Controller.userMap.containsKey(username)
+//                && Controller.userMap.get(username).getPassword().equals(password)) {
+//            Intent searchIntent = new Intent(this, SearchActivity.class);
+//            searchIntent.putExtra("Sender", "LoginActivity");
+//            searchIntent.putExtra("userType", userField.getText().toString());
+//            // enables access to type of account
+//            startActivity(searchIntent);
+//            incorrectText.setVisibility(View.INVISIBLE);
+//        } else {
+//            incorrectText.setVisibility(View.VISIBLE);
+//        }
+        //ToDo get the specific path for this call
+        String url = "http://shelter.lmc.gatech.edu/users/login";
+
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+
+            }
+        });
+        // Add the request to the queue
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+
     }
 
 }
