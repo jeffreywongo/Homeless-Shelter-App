@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,6 +19,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
@@ -85,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         String url = "http://shelter.lmc.gatech.edu/user/login";
 
         // Request a string response
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -116,7 +120,15 @@ public class LoginActivity extends AppCompatActivity {
                 error.printStackTrace();
 
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", userField.getText().toString().trim());
+                params.put("password", passField.getText().toString());
+                return params;
+            }
+        };
         // Add the request to the queue
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
