@@ -3,6 +3,7 @@ package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 //            incorrectText.setVisibility(View.VISIBLE);
 //        }
         //ToDo get the specific path for this call
-        String url = "http://shelter.lmc.gatech.edu/users/login";
+        String url = "http://shelter.lmc.gatech.edu/user/login";
 
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -95,7 +96,13 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                        searchIntent.putExtra("Sender", "LoginActivity");
+                        searchIntent.putExtra("userType", userField.getText().toString());
+                        // enables access to type of account
+                        startActivity(searchIntent);
+                        incorrectText.setVisibility(View.INVISIBLE);
+                        Log.d("volley", "onResponse: success");
 
 
                     }
@@ -104,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
                 // Error handling
+                incorrectText.setVisibility(View.VISIBLE);
                 System.out.println("Something went wrong!");
                 error.printStackTrace();
 
