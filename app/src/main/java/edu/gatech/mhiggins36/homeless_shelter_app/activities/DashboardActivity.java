@@ -11,6 +11,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +29,7 @@ import java.util.List;
 import edu.gatech.mhiggins36.homeless_shelter_app.CSVFile;
 import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
+import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 /**
@@ -34,17 +45,12 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_database);
-        CSVFile csvFile = new CSVFile(inputStream);
-        List<String[]> list = csvFile.read();
-
-        Controller.createMapFromcsv(list);
-        boolean b = Controller.shelterMap.containsKey("Eden Village ");
-        if (b) {
-            Log.d("devin", " is a key");
-        } else {
-            Log.d("devin", "not a key");
-        }
+//        InputStream inputStream = getResources().openRawResource(R.raw.homeless_shelter_database);
+//        CSVFile csvFile = new CSVFile(inputStream);
+//        List<String[]> list = csvFile.read();
+//
+//        Controller.createMapFromcsv(list);
+        createShelterMap();
 
         setContentView(R.layout.activity_dashboard);
         userTypeMessage = findViewById(R.id.userType);
@@ -80,9 +86,10 @@ public class DashboardActivity extends AppCompatActivity {
                 listShelters(null, age, gender);
             }
         }
-        String user = intent.getStringExtra("userType");
-        String userType = Controller.userMap.get(user).getUserType();
-        userTypeMessage.setText("Logged in as a(n) " + userType);
+        //TODO make this server compatible
+//        String user = intent.getStringExtra("userType");
+//        String userType = Controller.userMap.get(user).getUserType();
+//        userTypeMessage.setText("Logged in as a(n) " + userType);
     }
 
     /*
@@ -92,6 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void listShelters(String name, String age, String gender) {
 //        String[] names = getResources().getStringArray(R.array.shelters);
         HashMap<String, Shelter> shelters = Controller.shelterMap;
+        Log.d("devinhiggins", shelters.keySet().toString());
         List<String> shelterNames = new ArrayList<>();
         // if searched by name
         if (name != null) {
@@ -140,5 +148,62 @@ public class DashboardActivity extends AppCompatActivity {
     public void logout(View view) {
         Intent logoutIntent = new Intent(this, MainActivity.class);
         startActivity(logoutIntent);
+    }
+
+    public void createShelterMap() {
+        String url = "http://shelter.lmc.gatech.edu/shelters";
+        Log.d("devin", "onResponse: start");
+        // Request a string response
+        StringRequest arrayRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("devin", "in on response");
+                        try{
+                            JSONObject shelters = new JSONObject(response);
+                            JSONArray array = shelters.getJSONArray("shelters");
+                            // Loop through the array elements
+                            for(int i=0;i<array.length();i++){
+                                // Get current json object
+
+
+                                JSONObject shelter = array.getJSONObject(i);
+
+                                // Get the current student (json object) data
+                                String name = shelter.getString("name");
+                                int id = shelter.getInt("id");
+                                String capacity = shelter.getString("capacity");
+                                int vacancies = shelter.getInt("vacancies");
+                                String restrictions = shelter.getString("restrictions");
+                                float lattitude = (float)shelter.getDouble("latitude");
+                                float longitude = (float)shelter.getDouble("longitude");
+                                String address = shelter.getString("address");
+                                String phone = shelter.getString("phone");
+                                String description = shelter.getString("description");
+
+                                Log.d("devinh", name);
+                                Controller.shelterMap.put(name, new Shelter(id, name, capacity,
+                                        restrictions, longitude, lattitude, address, description, phone));
+
+                            }
+                        }catch (JSONException e){
+                            Log.d("devin", "onResponse: there " + e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("devin", "onResponse: errrooorrrr" + error.getMessage());
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+
+            }
+        });
+        // Add the request to the queue
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(arrayRequest);
+        Log.d("devin", "onResponse: end");
     }
 }
