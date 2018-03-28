@@ -3,6 +3,7 @@ package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -115,6 +116,21 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
+                        Log.d("Register", response);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            int userId = obj.getInt("id");
+                            String token = obj.getString("token");
+                            Controller.currentUser =
+                                    new User(nameField.getText().toString(),
+                                            emailField.getText().toString(),
+                                            userTypeSpinner.getSelectedItem().toString(),
+                                            userId, token);
+                            Log.d("Register", ""+Controller.currentUser.getUserId());
+                            Log.d("Register", Controller.currentUser.getJwt());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         // Result handling
                         // todo: discuss this later
                         Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);

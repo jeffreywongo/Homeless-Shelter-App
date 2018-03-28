@@ -6,19 +6,17 @@ package edu.gatech.mhiggins36.homeless_shelter_app.models;
 
 public class User {
 
-    private String password;
     private String name;
     private String email;
     private String userType;
-    private int userid;
+    private int userId;
     private String jwt;
 
-    public User(String name, String email, String password, String userType, int userid, String jwt) {
+    public User(String name, String email, String userType, int userId, String jwt) {
         this.name = name;
         this.email = email;
-        this.password = password;
         this.userType = userType;
-        this.userid = userid;
+        this.userId = userId;
         this.jwt = jwt;
     }
 
@@ -30,16 +28,12 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getUserType() {
         return userType;
     }
 
     public int getUserId() {
-        return userid;
+        return userId;
     }
 
     public String getJwt() {

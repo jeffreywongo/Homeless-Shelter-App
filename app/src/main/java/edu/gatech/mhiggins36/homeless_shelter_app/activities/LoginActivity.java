@@ -26,6 +26,7 @@ import java.util.Map;
 import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
+import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 /**
  * Checks login credentials
@@ -95,7 +96,17 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Result handling
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject obj = new JSONObject(response);
+                            int userId = obj.getInt("id");
+                            String token = obj.getString("token");
+                            // todo: implement this later
+//                            Controller.currentUser =
+//                                    new User(nameField.getText().toString(),
+//                                            emailField.getText().toString(),
+//                                            userTypeSpinner.getSelectedItem().toString(),
+//                                            userId, token);
+//                            Log.d("Register", ""+Controller.currentUser.getUserId());
+//                            Log.d("Register", Controller.currentUser.getJwt());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
