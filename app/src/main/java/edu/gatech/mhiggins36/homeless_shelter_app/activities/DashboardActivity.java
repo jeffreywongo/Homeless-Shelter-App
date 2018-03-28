@@ -70,6 +70,8 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(shelterInfoIntent);
             }
         });
+        // list all shelters initially
+        listShelters(null, "anyone", "anyone");
 
         Intent intent = getIntent();
         // check which intent is being handled with this

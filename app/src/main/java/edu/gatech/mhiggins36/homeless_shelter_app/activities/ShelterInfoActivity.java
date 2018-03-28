@@ -1,6 +1,7 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +25,7 @@ import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
+import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 public class ShelterInfoActivity extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView specialNotes;
     TextView capacity;
     TextView latlong;
+    private final String TAG = "ShelterInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +71,24 @@ public class ShelterInfoActivity extends AppCompatActivity {
     protected void claim(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
         int id = shelter.getUniqueKey();
-        int userid = Controller.currentUser.getUserId();
-        String url = "http://shelter.lmc.gatech.edu/user/checkIn/" + Integer.toString(userid) +'/'+ Integer.toString(id);
+        SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString("currentUser", "");
+        // this is final bcs it's being accessed from inner class below
+        final User currentUser = gson.fromJson(json, User.class);
+        int userId = currentUser.getUserId();
+        Log.d(TAG, ""+userId);
+        Log.d(TAG, currentUser.getJwt());
+        String url = "http://shelter.lmc.gatech.edu/user/checkIn/" + Integer.toString(userId) +'/'+ Integer.toString(id);
 
 
         // Request a string response
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
+                        Log.d("ShelterInfo", response);
                         capacity = findViewById(R.id.capacity);
                         capacity.setText(response);
 
@@ -86,16 +98,17 @@ public class ShelterInfoActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
                 // Error handling
-                System.out.println("Something went wrong!");
+                Log.d("ShelterInfo", "Something went wrong!");
+//                System.out.println(error);
                 error.printStackTrace();
 
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                String jwt = Controller.currentUser.getJwt();
-                params.put("jwt", jwt);
+                Map<String, String> params = new HashMap<>();
+                String jwt = currentUser.getJwt();
+                params.put("x-access-token", jwt);
 
                 return params;
             }

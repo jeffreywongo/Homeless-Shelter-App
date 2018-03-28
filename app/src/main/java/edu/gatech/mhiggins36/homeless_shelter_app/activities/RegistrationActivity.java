@@ -1,6 +1,7 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,13 +123,26 @@ public class RegistrationActivity extends AppCompatActivity {
                             JSONObject obj = new JSONObject(response);
                             int userId = obj.getInt("id");
                             String token = obj.getString("token");
-                            Controller.currentUser =
+                            User currentUser =
                                     new User(nameField.getText().toString(),
                                             emailField.getText().toString(),
                                             userTypeSpinner.getSelectedItem().toString(),
                                             userId, token);
-                            Log.d("Register", ""+Controller.currentUser.getUserId());
-                            Log.d("Register", Controller.currentUser.getJwt());
+                            /*
+                            All this is to put currentUser in a SharedPreference. Using a static
+                            field in Controller won't work since it gets wiped when the app is
+                            closed. A SharedPreference saves it on the device and lets you access
+                            it in any activity.
+                             */
+                            SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor prefsEditor = pref.edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(currentUser);
+                            prefsEditor.putString("currentUser", json);
+                            prefsEditor.commit();
+
+                            Log.d("Register", ""+currentUser.getUserId());
+                            Log.d("Register", currentUser.getJwt());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

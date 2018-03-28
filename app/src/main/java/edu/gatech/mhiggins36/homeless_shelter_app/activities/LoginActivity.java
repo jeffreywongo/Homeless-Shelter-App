@@ -1,6 +1,7 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -99,14 +101,22 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject obj = new JSONObject(response);
                             int userId = obj.getInt("id");
                             String token = obj.getString("token");
-                            // todo: implement this later
-//                            Controller.currentUser =
-//                                    new User(nameField.getText().toString(),
-//                                            emailField.getText().toString(),
-//                                            userTypeSpinner.getSelectedItem().toString(),
-//                                            userId, token);
-//                            Log.d("Register", ""+Controller.currentUser.getUserId());
-//                            Log.d("Register", Controller.currentUser.getJwt());
+                            // todo: make server send full user info in response
+                            // todo: or query databse for user info in the future
+                            /*
+                            Get the currentUser from the SharedPreference
+                             */
+                            // todo: maybe put this in a static method within this activity or somn'
+                            SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor prefsEditor = pref.edit();
+                            Gson gson = new Gson();
+                            String json = pref.getString("currentUser", "");
+                            Log.d("Login", json);
+                            User currentUser = gson.fromJson(json, User.class);
+                            currentUser.setUserId(userId);
+                            currentUser.setJwt(token);
+                            prefsEditor.putString("currentUser", json);
+                            prefsEditor.commit();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -67,7 +67,7 @@ public class Controller {
     public static HashMap<String, User> userMap = new HashMap<>();
     public static HashMap<String, Shelter> shelterMap = new HashMap<>();
     public static List<Shelter> shelterList;
-    public static User currentUser;
+//    public static User currentUser;
 
     public static void createMapFromcsv(List<String[]> list) {
         Log.d("csv", "here");
