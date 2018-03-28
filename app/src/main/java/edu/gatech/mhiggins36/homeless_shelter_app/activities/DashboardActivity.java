@@ -75,14 +75,15 @@ public class DashboardActivity extends AppCompatActivity {
         // check which intent is being handled with this
         String sender = intent.getStringExtra("Sender");
         if (sender.equals("SearchActivity")) {
-            String name = intent.getStringExtra("name");
-            String age = intent.getStringExtra("age");
-            String gender = intent.getStringExtra("gender");
+            String name = intent.getStringExtra("name").toLowerCase();
+            String age = intent.getStringExtra("age").toLowerCase();
+            String gender = intent.getStringExtra("gender").toLowerCase();
             // if search bar used then disregard spinner selections
             if (name != null && name.trim().length() != 0) {
                 Log.d("Dash", "called with " + name);
                 listShelters(name, null, null);
             } else {
+                Log.d("Dash", "Filtering logic used");
                 listShelters(null, age, gender);
             }
         }
@@ -99,46 +100,49 @@ public class DashboardActivity extends AppCompatActivity {
     private void listShelters(String name, String age, String gender) {
 //        String[] names = getResources().getStringArray(R.array.shelters);
         HashMap<String, Shelter> shelters = Controller.shelterMap;
-        Log.d("devinhiggins", shelters.keySet().toString());
+        Log.d("Dash", shelters.values().toString());
         List<String> shelterNames = new ArrayList<>();
+        String anyone = "anyone";
         // if searched by name
         if (name != null) {
             for (String key : shelters.keySet()) {
-                if (key.contains(name)) {
+                if ((key.toLowerCase()).contains(name)) {
                     shelterNames.add(key);
                 }
             }
         } else {
-            if (age.equals("Anyone") && !gender.equals("Anyone")) {
+            if (age.equals(anyone) && !gender.equals(anyone)) {
                 for (Shelter shelter : shelters.values()) {
-                    String restrictions = shelter.getRestrictions();
+                    String restrictions = shelter.getRestrictions().toLowerCase();
+                    Log.d("Dash", shelter.getName() + ": " + restrictions);
                     if (restrictions.contains(gender)) {
                         shelterNames.add(shelter.getName());
                     }
                 }
             }
-            if (!age.equals("Anyone") && gender.equals("Anyone")) {
+            if (!age.equals(anyone) && gender.equals(anyone)) {
                 for (Shelter shelter : shelters.values()) {
-                    String restrictions = shelter.getRestrictions();
+                    String restrictions = shelter.getRestrictions().toLowerCase();
                     if (restrictions.contains(age)) {
                         shelterNames.add(shelter.getName());
                     }
                 }
             }
-            if (age.equals("Anyone") && gender.equals("Anyone")) {
+            if (age.equals(anyone) && gender.equals(anyone)) {
                 for (Shelter shelter : shelters.values()) {
                     shelterNames.add(shelter.getName());
                 }
             }
-            if (!age.equals("Anyone") && !gender.equals("Anyone")) {
+            if (!age.equals(anyone) && !gender.equals(anyone)) {
                 for (Shelter shelter : shelters.values()) {
-                    String restrictions = shelter.getRestrictions();
+                    String restrictions = shelter.getRestrictions().toLowerCase();
                     if (restrictions.contains(age) && restrictions.contains(gender)) {
                         shelterNames.add(shelter.getName());
                     }
                 }
             }
         }
+        Log.d("Dash", shelterNames.toString());
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
