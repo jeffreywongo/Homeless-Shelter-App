@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
@@ -66,8 +67,9 @@ public class ShelterInfoActivity extends AppCompatActivity {
     protected void claim(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
         int id = shelter.getUniqueKey();
-        int userid = 1;
+        int userid = Controller.currentUser.getUserId();
         String url = "http://shelter.lmc.gatech.edu/user/checkIn/" + Integer.toString(userid) +'/'+ Integer.toString(id);
+
 
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -90,8 +92,10 @@ public class ShelterInfoActivity extends AppCompatActivity {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                String jwt = Controller.currentUser.getJwt();
+                params.put("jwt", jwt);
 
                 return params;
             }

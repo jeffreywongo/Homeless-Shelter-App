@@ -37,4 +37,12 @@ public class User {
     public String getUserType() {
         return userType;
     }
+
+    public int getUserId() {
+        return userid;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
 }
