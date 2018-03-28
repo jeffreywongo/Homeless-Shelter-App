@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
 //        } else {
 //            incorrectText.setVisibility(View.VISIBLE);
 //        }
-        //ToDo get the specific path for this call
         String url = "http://shelter.lmc.gatech.edu/user/login";
 
         // Request a string response
