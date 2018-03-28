@@ -64,15 +64,11 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 public class Controller {
 
-    public static HashMap<String, User> userMap = createUserMap();
+    public static HashMap<String, User> userMap = new HashMap<>();
     public static HashMap<String, Shelter> shelterMap = new HashMap<>();
     public static List<Shelter> shelterList;
+    public static User currentUser;
 
-    public static HashMap<String, User> createUserMap() {
-        HashMap<String, User> u = new HashMap<>();
-        u.put("user", new User("user", "user", "pass", "User"));
-        return u;
-    }
     public static void createMapFromcsv(List<String[]> list) {
         Log.d("csv", "here");
         for (int i = 1; i < list.size(); i++) {
