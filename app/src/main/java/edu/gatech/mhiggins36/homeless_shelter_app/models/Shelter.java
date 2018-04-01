@@ -10,7 +10,8 @@ import android.os.Parcelable;
 public class Shelter implements Parcelable{
     private int uniqueKey;
     private String name;
-    private String capacity;
+    private int capacity;
+    private int vacancies;
     private  String restrictions;
     private float longitude;
     private float latitude;
@@ -18,12 +19,13 @@ public class Shelter implements Parcelable{
     private String specialNotes;
     private String phoneNumber;
 
-    public Shelter(int uniqueKey, String name, String capacity, String restrictions,
+    public Shelter(int uniqueKey, String name, int capacity, int vacancies, String restrictions,
                    float longitude, float latitude, String address, String specialNotes,
                    String phoneNumber) {
         this.uniqueKey = uniqueKey;
         this.name = name;
         this.capacity = capacity;
+        this.vacancies = vacancies;
         this.restrictions = restrictions;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -60,13 +62,17 @@ public class Shelter implements Parcelable{
         this.name = name;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public int getVacancies() {return vacancies;}
+
+    public void setVacancies(int vacancies) {this.vacancies = vacancies;}
 
     public String getRestrictions() {
         return restrictions;
@@ -125,7 +131,8 @@ public class Shelter implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(this.uniqueKey);
         parcel.writeString(this.name);
-        parcel.writeString(this.capacity);
+        parcel.writeInt(this.capacity);
+        parcel.writeInt(this.vacancies);
         parcel.writeString(this.restrictions);
         parcel.writeFloat(this.longitude);
         parcel.writeFloat(this.latitude);
@@ -138,7 +145,8 @@ public class Shelter implements Parcelable{
     public Shelter(Parcel in){
         this.uniqueKey = in.readInt();
         this.name = in.readString();
-        this.capacity = in.readString();
+        this.capacity = in.readInt();
+        this.vacancies = in.readInt();
         this.restrictions = in.readString();
         this.longitude = in.readFloat();
         this.latitude = in.readFloat();

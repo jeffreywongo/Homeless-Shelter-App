@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.042" />
 
     <TextView
-        android:id="@+id/capacity"
+        android:id="@+id/vacancies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/capacity"
+        app:layout_constraintTop_toBottomOf="@+id/vacancies"
         app:layout_constraintVertical_bias="0.03" />
 
     <TextView
@@ -116,4 +116,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
         app:layout_constraintVertical_bias="0.254" />
+
+    <Button
+        android:id="@+id/cancelBed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="clearReservation"
+        android:text="Cancel Current Reservation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bedClaim" />
 </android.support.constraint.ConstraintLayout>

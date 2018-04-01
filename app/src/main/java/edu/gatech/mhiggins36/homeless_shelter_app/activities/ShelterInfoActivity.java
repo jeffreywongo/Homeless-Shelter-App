@@ -7,20 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
-import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
-import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
@@ -46,7 +36,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         phoneNumber = findViewById(R.id.phoneNumber);
         restrictions = findViewById(R.id.restrictions);
         specialNotes = findViewById(R.id.specialNotes);
-        capacity = findViewById(R.id.capacity);
+        capacity = findViewById(R.id.vacancies);
         latlong = findViewById(R.id.latlong);
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
@@ -60,7 +50,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         address.setText(addressWithCommas);
         phoneNumber.setText(shelter.getPhoneNumber());
         restrictions.setText(restrictionsWithCommas);
-        capacity.setText(shelter.getCapacity());
+        capacity.setText("" + shelter.getVacancies());
         specialNotes.setText(notesWithCommas);
         latlong.setText(gpsLocation);
     }
@@ -76,12 +66,14 @@ public class ShelterInfoActivity extends AppCompatActivity {
         int userId = currentUser.getUserId();
         Log.d(TAG, ""+userId);
         Log.d(TAG, currentUser.getJwt());
-        String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+'/'+ Integer.toString(id);
-
+        String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ Integer.toString(id);
+        ShelterManager.claim(getApplicationContext(), url, currentUser);
         //TODO implement this correctly
         try {
-            capacity = findViewById(R.id.capacity);
-            //capacity.setText(response);
+            ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+
+            capacity = findViewById(R.id.vacancies);
+            capacity.setText("" + shelter.getVacancies());
         } catch (Error e) {
 
         }
