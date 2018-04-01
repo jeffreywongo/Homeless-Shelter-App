@@ -1,6 +1,5 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +14,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.gatech.mhiggins36.homeless_shelter_app.Controller;
+import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
+import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
@@ -79,41 +76,17 @@ public class ShelterInfoActivity extends AppCompatActivity {
         int userId = currentUser.getUserId();
         Log.d(TAG, ""+userId);
         Log.d(TAG, currentUser.getJwt());
-        String url = "http://shelter.lmc.gatech.edu/user/checkIn/" + Integer.toString(userId) +'/'+ Integer.toString(id);
+        String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+'/'+ Integer.toString(id);
 
+        //TODO implement this correctly
+        try {
+            capacity = findViewById(R.id.capacity);
+            //capacity.setText(response);
+        } catch (Error e) {
+
+        }
 
         // Request a string response
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                        Log.d("ShelterInfo", response);
-                        capacity = findViewById(R.id.capacity);
-                        capacity.setText(response);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                // Error handling
-                Log.d("ShelterInfo", "Something went wrong!");
-//                System.out.println(error);
-                error.printStackTrace();
-
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                String jwt = currentUser.getJwt();
-                params.put("x-access-token", jwt);
-
-                return params;
-            }
-        };
-        // Add the request to the queue
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }
