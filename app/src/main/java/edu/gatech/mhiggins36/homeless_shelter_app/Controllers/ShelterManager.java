@@ -94,7 +94,6 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 throw new Error(error.getMessage());
             }
         }) {
@@ -111,9 +110,9 @@ public class ShelterManager {
     }
 
     public static void getShelterInfo(Context context, int shelterID) {
-        String uri = "shelter.lmc.gatech.edu/shelters/" + shelterID;
+        String uri = "http://shelter.lmc.gatech.edu/shelters/" + shelterID;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, uri,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -139,7 +138,6 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 throw new Error(error.getMessage());
             }
         });
@@ -147,6 +145,34 @@ public class ShelterManager {
         // Add the request to the queue
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
 
+    }
+
+    public static void clearBed(Context context, int shelterID, final User currentUser) {
+        String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID ;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                throw new Error(error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                String jwt = currentUser.getJwt();
+                params.put("x-access-token", jwt);
+                return params;
+            }
+        };
+
+        // Add the request to the queue
+        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 

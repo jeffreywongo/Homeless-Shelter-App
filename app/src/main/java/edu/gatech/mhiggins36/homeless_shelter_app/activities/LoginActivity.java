@@ -67,11 +67,13 @@ public class LoginActivity extends AppCompatActivity {
         String username = userField.getText().toString().trim();
         String password = passField.getText().toString();
         //UserManager.checkLogin(getApplicationContext(), username, password);
+        //TODO make sure that we are actually handling server errors properly
         try {
             edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.checkLogin(getApplicationContext(), username, password);
             Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
             searchIntent.putExtra("Sender", "LoginActivity");
             searchIntent.putExtra("userType", userField.getText().toString());
+            Log.d("checking login", "checkCredentials: here");
             // enables access to type of account
             startActivity(searchIntent);
             incorrectText.setVisibility(View.INVISIBLE);

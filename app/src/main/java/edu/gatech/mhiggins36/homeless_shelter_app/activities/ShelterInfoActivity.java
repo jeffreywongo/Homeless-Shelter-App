@@ -67,18 +67,46 @@ public class ShelterInfoActivity extends AppCompatActivity {
         Log.d(TAG, ""+userId);
         Log.d(TAG, currentUser.getJwt());
         String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ Integer.toString(id);
-        ShelterManager.claim(getApplicationContext(), url, currentUser);
+        try {
+            ShelterManager.claim(getApplicationContext(), url, currentUser);
+        } catch (Error e) {
+            //todo display an error message on the view saying that they cant claim another bed
+            return;
+        }
         //TODO implement this correctly
         try {
             ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
-
+            Log.d("try", "claim: try");
             capacity = findViewById(R.id.vacancies);
             capacity.setText("" + shelter.getVacancies());
         } catch (Error e) {
-
+            Log.d("murtaza", e.getMessage());
         }
 
         // Request a string response
 
+    }
+
+    public void clearReservation(View view) {
+        Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
+        int id = shelter.getUniqueKey();
+        SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString("currentUser", "");
+        // this is final bcs it's being accessed from inner class below
+        final User currentUser = gson.fromJson(json, User.class);
+        try {
+            ShelterManager.clearBed(getApplicationContext(), id, currentUser);
+        } catch (Error e) {
+
+        }
+        try {
+            ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+            Log.d("try", "claim: try");
+            //capacity = findViewById(R.id.vacancies);
+            capacity.setText("" + shelter.getVacancies());
+        } catch (Error e) {
+            Log.d("murtaza", e.getMessage());
+        }
     }
 }
