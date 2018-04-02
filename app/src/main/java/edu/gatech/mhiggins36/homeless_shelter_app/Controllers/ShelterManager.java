@@ -48,7 +48,6 @@ public class ShelterManager {
                             for(int i=0;i<array.length();i++){
                                 // Get current json object
 
-
                                 JSONObject shelter = array.getJSONObject(i);
 
                                 // Get the current student (json object) data
@@ -129,8 +128,11 @@ public class ShelterManager {
                             String address = shelter.getString("address");
                             String phone = shelter.getString("phone");
                             String description = shelter.getString("description");
+                            Log.d("sheltercount", name + vacancies);
                             shelterMap.put(name, new Shelter(id, name, capacity, vacancies,
                                     restrictions, longitude, lattitude, address, description, phone));
+                            vacancies = shelterMap.get(name).getVacancies();
+                            Log.d("sheltercount", name + vacancies);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -147,8 +149,8 @@ public class ShelterManager {
 
     }
 
-    public static void clearBed(Context context, final User currentUser) {
-        String uri = "http://shelter.lmc.gatech.edu/user/checkOut" ;
+    public static void clearBed(Context context, final User currentUser, int shelterID) {
+        String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
                 new Response.Listener<String>() {

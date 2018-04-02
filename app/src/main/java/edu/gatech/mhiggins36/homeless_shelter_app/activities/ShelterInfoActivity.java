@@ -1,5 +1,6 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +24,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView specialNotes;
     TextView capacity;
     TextView latlong;
+    TextView claimStatus;
     private final String TAG = "ShelterInfo";
 
     //boolean to tell if the claim server call was successful
-    public static boolean claimed;
-    public static boolean unclaimed;
+    public static boolean claimed = false;
+    public static boolean unclaimed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         specialNotes = findViewById(R.id.specialNotes);
         capacity = findViewById(R.id.vacancies);
         latlong = findViewById(R.id.latlong);
+        claimStatus = findViewById(R.id.claimStatus);
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
 
@@ -57,10 +60,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
         capacity.setText("" + shelter.getVacancies());
         specialNotes.setText(notesWithCommas);
         latlong.setText(gpsLocation);
+        claimStatus.setVisibility(View.INVISIBLE);
     }
 
     protected void claim(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
+        String name = shelter.getName();
         int id = shelter.getUniqueKey();
         SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -70,27 +75,28 @@ public class ShelterInfoActivity extends AppCompatActivity {
         int userId = currentUser.getUserId();
         Log.d(TAG, ""+userId);
         Log.d(TAG, currentUser.getJwt());
-        String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ Integer.toString(id);
-
+        String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ id;
         ShelterManager.claim(getApplicationContext(), url, currentUser);
+
         if (claimed) {
             //the call was successful
             ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+            shelter = ShelterManager.shelterMap.get(name);
+            Log.d("vacancies", "claim: " + shelter.getVacancies());
             capacity.setText("" + shelter.getVacancies());
+            claimStatus.setText("claim successful");
+            claimStatus.setVisibility(View.VISIBLE);
         } else {
             //call was unsuccessful
-            //todo display a message saying so
+            claimStatus.setText("claim unsuccessful");
+            claimStatus.setVisibility(View.VISIBLE);
         }
-
-
-
-
-
 
     }
 
     public void clearReservation(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
+        String name = shelter.getName();
         int id = shelter.getUniqueKey();
         SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -98,13 +104,18 @@ public class ShelterInfoActivity extends AppCompatActivity {
         // this is final bcs it's being accessed from inner class below
         final User currentUser = gson.fromJson(json, User.class);
 
-        ShelterManager.clearBed(getApplicationContext(), currentUser);
+        ShelterManager.clearBed(getApplicationContext(), currentUser, shelter.getUniqueKey());
         if (unclaimed) {
             //call was successful so update view
             ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+            shelter = ShelterManager.shelterMap.get(name);
+            Log.d("vacancies", "clearReservation: " + shelter.getVacancies());
             capacity.setText("" + shelter.getVacancies());
+            claimStatus.setText("clear successful");
+            claimStatus.setVisibility(View.VISIBLE);
         } else {
-
+            claimStatus.setText("clear unsuccessful");
+            claimStatus.setVisibility(View.VISIBLE);
         }
     }
 }
