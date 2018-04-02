@@ -37,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText passField2;
     TextView errorMessageReg;
     Spinner userTypeSpinner;
+    static boolean register = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +79,6 @@ public class RegistrationActivity extends AppCompatActivity {
             errorMessageReg.setVisibility(View.VISIBLE);
             return;
         }
-
-        //todo check if the username is already taken
-//        if (Controller.userMap.containsKey(emailField.getText().toString().trim())) {
-//            errorMessageReg.setText("Email Entered Already In Use");
-//            errorMessageReg.setVisibility(View.VISIBLE);
-//            return;
-//        }
         if (passField.getText().toString().equals("")) {
             errorMessageReg.setText("No Password Entered");
             errorMessageReg.setVisibility(View.VISIBLE);
@@ -103,20 +97,28 @@ public class RegistrationActivity extends AppCompatActivity {
         check that email is a valid email form
         check that all fields are filled in
         */
-        try {
             edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.register(getApplicationContext(),
                     nameField.getText().toString().trim(), emailField.getText().toString().trim(), passField.getText().toString(),
                     userTypeSpinner.getSelectedItem().toString());
-            Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
-            searchIntent.putExtra("Sender", "RegistrationActivity");
-            searchIntent.putExtra("userType", emailField.getText().toString());
-            // enables access to type of account
-            startActivity(searchIntent);
-        } catch (Error e) {
+            if (register) {
+                Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                searchIntent.putExtra("Sender", "RegistrationActivity");
+                searchIntent.putExtra("userType", emailField.getText().toString());
+                // enables access to type of account
+                startActivity(searchIntent);
+            } else {
             errorMessageReg.setText("Email Entered Already In Use");
             errorMessageReg.setVisibility(View.VISIBLE);
-        }
+            }
 
+    }
+
+    public static void successfulRegistration() {
+        register = true;
+    }
+
+    public static void failedRegistration() {
+        register = false;
     }
 
     public void cancelRegistration(View view) {

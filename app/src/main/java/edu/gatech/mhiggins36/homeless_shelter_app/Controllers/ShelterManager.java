@@ -19,6 +19,7 @@ import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
+import edu.gatech.mhiggins36.homeless_shelter_app.activities.ShelterInfoActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
@@ -84,17 +85,17 @@ public class ShelterManager {
         VolleySingleton.getInstance(context).addToRequestQueue(arrayRequest);
     }
 
-    public static void claim(final Context context, String url, final User currentUser) throws Error {
+    public static void claim(final Context context, String url, final User currentUser) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        ShelterInfoActivity.claimed = true;
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                throw new Error(error.getMessage());
+                ShelterInfoActivity.claimed = false;
             }
         }) {
             @Override
@@ -130,7 +131,6 @@ public class ShelterManager {
                             String description = shelter.getString("description");
                             shelterMap.put(name, new Shelter(id, name, capacity, vacancies,
                                     restrictions, longitude, lattitude, address, description, phone));
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -138,7 +138,7 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                throw new Error(error.getMessage());
+                error.printStackTrace();
             }
         });
 
@@ -147,19 +147,19 @@ public class ShelterManager {
 
     }
 
-    public static void clearBed(Context context, int shelterID, final User currentUser) {
-        String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID ;
+    public static void clearBed(Context context, final User currentUser) {
+        String uri = "http://shelter.lmc.gatech.edu/user/checkOut" ;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        ShelterInfoActivity.unclaimed = true;
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                throw new Error(error.getMessage());
+                ShelterInfoActivity.unclaimed = false;
             }
         }) {
             @Override

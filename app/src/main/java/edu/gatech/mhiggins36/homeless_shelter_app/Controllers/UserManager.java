@@ -24,6 +24,7 @@ import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.LoginActivity;
+import edu.gatech.mhiggins36.homeless_shelter_app.activities.RegistrationActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.SearchActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
@@ -125,17 +126,16 @@ public class UserManager {
                             String json = gson.toJson(currentUser);
                             prefsEditor.putString("currentUser", json);
                             prefsEditor.commit();
+                            RegistrationActivity.successfulRegistration();
 
-                            Log.d("Register", ""+currentUser.getUserId());
-                            Log.d("Register", currentUser.getJwt());
                         } catch (JSONException e) {
-                            throw new Error(e.getMessage());
+                            RegistrationActivity.failedRegistration();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                throw new Error(error.getMessage());
+                RegistrationActivity.failedRegistration();
             }
 
         }) {
