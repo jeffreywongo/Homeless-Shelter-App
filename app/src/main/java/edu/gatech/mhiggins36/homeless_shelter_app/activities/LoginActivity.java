@@ -36,9 +36,11 @@ public class LoginActivity extends AppCompatActivity {
 
     //    private static final String usernameTest = "user";
 //    private static final String passwordTest = "pass";
-    EditText userField;
+    static EditText userField;
     EditText passField;
-    TextView incorrectText;
+    static TextView incorrectText;
+    static boolean login = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +70,30 @@ public class LoginActivity extends AppCompatActivity {
         String password = passField.getText().toString();
         //UserManager.checkLogin(getApplicationContext(), username, password);
         //TODO make sure that we are actually handling server errors properly
-        try {
-            edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.checkLogin(getApplicationContext(), username, password);
+
+        edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.checkLogin(getApplicationContext(), username, password);
+        if (login) {
             Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
             searchIntent.putExtra("Sender", "LoginActivity");
             searchIntent.putExtra("userType", userField.getText().toString());
-            Log.d("checking login", "checkCredentials: here");
             // enables access to type of account
             startActivity(searchIntent);
             incorrectText.setVisibility(View.INVISIBLE);
-        } catch (Error e) {
+        } else {
+            incorrectText.setVisibility(View.VISIBLE);
             incorrectText.setText("incorrect email or password");
         }
-
     }
+
+    public static void successfulLogin() {
+       login = true;
+    }
+
+    public static void failedLogin() {
+
+        login = false;
+    }
+
+
 
 }
