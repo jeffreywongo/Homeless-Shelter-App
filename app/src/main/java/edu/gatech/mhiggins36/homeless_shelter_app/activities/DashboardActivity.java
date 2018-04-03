@@ -38,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
     Button logoutButton;
     TextView userTypeMessage;
     ListView shelterList;
+    List<String> filteredShelterList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
         // list all shelters initially
-        listShelters(null, "anyone", "anyone");
+        filteredShelterList = listShelters(null, "anyone", "anyone");
 
         Intent intent = getIntent();
         // check which intent is being handled with this
@@ -87,7 +88,7 @@ public class DashboardActivity extends AppCompatActivity {
     called on create of the dashboard
     displays all the shelters on the dashboard
      */
-    private void listShelters(String name, String age, String gender) {
+    private List<String> listShelters(String name, String age, String gender) {
         HashMap<String, Shelter> shelters = ShelterManager.shelterMap;
         List<String> shelterNames = new ArrayList<>();
         String anyone = "anyone";
@@ -134,6 +135,7 @@ public class DashboardActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
+        return shelterNames;
     }
 
 
