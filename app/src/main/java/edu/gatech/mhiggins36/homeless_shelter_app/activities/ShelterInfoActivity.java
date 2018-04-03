@@ -80,12 +80,14 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
         if (claimed) {
             //the call was successful
-            ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+            //ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
             shelter = ShelterManager.shelterMap.get(name);
             Log.d("vacancies", "claim: " + shelter.getVacancies());
             capacity.setText("" + shelter.getVacancies());
             claimStatus.setText("claim successful");
             claimStatus.setVisibility(View.VISIBLE);
+//            finish();
+//            startActivity(getIntent());
         } else {
             //call was unsuccessful
             claimStatus.setText("claim unsuccessful");
@@ -107,12 +109,14 @@ public class ShelterInfoActivity extends AppCompatActivity {
         ShelterManager.clearBed(getApplicationContext(), currentUser, shelter.getUniqueKey());
         if (unclaimed) {
             //call was successful so update view
-            ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
+            //ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
             shelter = ShelterManager.shelterMap.get(name);
             Log.d("vacancies", "clearReservation: " + shelter.getVacancies());
             capacity.setText("" + shelter.getVacancies());
             claimStatus.setText("clear successful");
             claimStatus.setVisibility(View.VISIBLE);
+//            finish();
+//            startActivity(getIntent());
         } else {
             claimStatus.setText("clear unsuccessful");
             claimStatus.setVisibility(View.VISIBLE);

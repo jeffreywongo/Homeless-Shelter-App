@@ -89,6 +89,14 @@ public class ShelterManager {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject shelter = new JSONObject(response);
+                            String name = shelter.getString("name");
+                            int vacancies = shelter.getInt("vacancies");
+                            shelterMap.get(name).setVacancies(vacancies);
+                        } catch (Exception e) {
+                            ShelterInfoActivity.claimed = false;
+                        }
                         ShelterInfoActivity.claimed = true;
                     }
                 }, new Response.ErrorListener() {
@@ -109,53 +117,22 @@ public class ShelterManager {
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    public static void getShelterInfo(Context context, int shelterID) {
-        String uri = "http://shelter.lmc.gatech.edu/shelters/" + shelterID;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, uri,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject shelter = new JSONObject(response);
-                            String name = shelter.getString("name");
-                            int id = shelter.getInt("id");
-                            int capacity = shelter.getInt("capacity");
-                            int vacancies = shelter.getInt("vacancies");
-                            String restrictions = shelter.getString("restrictions");
-                            float lattitude = (float)shelter.getDouble("latitude");
-                            float longitude = (float)shelter.getDouble("longitude");
-                            String address = shelter.getString("address");
-                            String phone = shelter.getString("phone");
-                            String description = shelter.getString("description");
-                            Log.d("sheltercount", name + vacancies);
-                            shelterMap.put(name, new Shelter(id, name, capacity, vacancies,
-                                    restrictions, longitude, lattitude, address, description, phone));
-                            vacancies = shelterMap.get(name).getVacancies();
-                            Log.d("sheltercount", name + vacancies);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
-
-    }
-
-    public static void clearBed(Context context, final User currentUser, int shelterID) {
+    public static void clearBed(Context context, final User currentUser, final int shelterID) {
         String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject shelter = new JSONObject(response);
+                            String name = shelter.getString("name");
+                            int vacancies = shelter.getInt("vacancies");
+                            shelterMap.get(name).setVacancies(vacancies);
+                        } catch (Exception e) {
+                            ShelterInfoActivity.unclaimed = false;
+                        }
+
                         ShelterInfoActivity.unclaimed = true;
                     }
                 }, new Response.ErrorListener() {
