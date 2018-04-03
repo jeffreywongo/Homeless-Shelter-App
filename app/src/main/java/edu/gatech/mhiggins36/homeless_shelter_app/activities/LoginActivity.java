@@ -69,7 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         //UserManager.checkLogin(getApplicationContext(), username, password);
         try {
             edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.checkLogin(getApplicationContext(), username, password);
-            Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+            // To test map functionality, searchIntent takes user to MapsActivity
+            Intent searchIntent = new Intent(getApplicationContext(), MapsActivity.class);
             searchIntent.putExtra("Sender", "LoginActivity");
             searchIntent.putExtra("userType", userField.getText().toString());
             // enables access to type of account
