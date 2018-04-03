@@ -24,6 +24,7 @@ import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.LoginActivity;
+import edu.gatech.mhiggins36.homeless_shelter_app.activities.RegistrationActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.SearchActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
@@ -36,14 +37,13 @@ import static android.content.Context.MODE_PRIVATE;
 public class UserManager {
 
     public static void checkLogin(final Context context, final String username,
-                                        final String password) throws Error{
+                                        final String password) {
         String url = "http://shelter.lmc.gatech.edu/user/login";
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         // Result handling
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -54,7 +54,6 @@ public class UserManager {
                             /*
                             Get the currentUser from the SharedPreference
                              */
-                            // todo: maybe put this in a static method within this activity or somn'
                             SharedPreferences pref = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor prefsEditor = pref.edit();
                             Gson gson = new Gson();
@@ -65,19 +64,20 @@ public class UserManager {
                             currentUser.setJwt(token);
                             prefsEditor.putString("currentUser", json);
                             prefsEditor.commit();
+
+                            //sets the login boolean to true in LoginActivity
+                            LoginActivity.successfulLogin();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        Log.d("volley", "onResponse: success");
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error){
                 // Error handling
-                throw new Error(error.getMessage());
+                //sets login boolean to false
+                LoginActivity.failedLogin();
+                Log.d("login server error: ", error.networkResponse.toString());
             }
         }) {
             @Override
@@ -126,17 +126,16 @@ public class UserManager {
                             String json = gson.toJson(currentUser);
                             prefsEditor.putString("currentUser", json);
                             prefsEditor.commit();
+                            RegistrationActivity.successfulRegistration();
 
-                            Log.d("Register", ""+currentUser.getUserId());
-                            Log.d("Register", currentUser.getJwt());
                         } catch (JSONException e) {
-                            throw new Error(e.getMessage());
+                            RegistrationActivity.failedRegistration();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                throw new Error(error.getMessage());
+                RegistrationActivity.failedRegistration();
             }
 
         }) {
