@@ -84,7 +84,7 @@ public class ShelterManager {
         VolleySingleton.getInstance(context).addToRequestQueue(arrayRequest);
     }
 
-    public static void claim(final Context context, String url, final User currentUser) {
+    public static void claim(final Context context, String url, final User currentUser,final int bedCount) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
@@ -110,6 +110,13 @@ public class ShelterManager {
                 Map<String, String> params = new HashMap<>();
                 String jwt = currentUser.getJwt();
                 params.put("x-access-token", jwt);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("count", ""+ bedCount);
                 return params;
             }
         };

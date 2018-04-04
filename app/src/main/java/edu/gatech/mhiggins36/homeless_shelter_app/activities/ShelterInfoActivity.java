@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     TextView capacity;
     TextView latlong;
     TextView claimStatus;
+    EditText numBeds;
     private final String TAG = "ShelterInfo";
 
     //boolean to tell if the claim server call was successful
@@ -45,6 +47,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         capacity = findViewById(R.id.vacancies);
         latlong = findViewById(R.id.latlong);
         claimStatus = findViewById(R.id.claimStatus);
+        numBeds = findViewById(R.id.numBeds);
 
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
 
@@ -75,8 +78,18 @@ public class ShelterInfoActivity extends AppCompatActivity {
         int userId = currentUser.getUserId();
         Log.d(TAG, ""+userId);
         Log.d(TAG, currentUser.getJwt());
+        int bedCount = 1;
+        try {
+            if (!numBeds.getText().equals("")) {
+                bedCount = Integer.parseInt(numBeds.getText().toString());
+            }
+        } catch (Throwable e) {
+            claimStatus.setText("beds input not a number");
+            return;
+        }
+
         String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ id;
-        ShelterManager.claim(getApplicationContext(), url, currentUser);
+        ShelterManager.claim(getApplicationContext(), url, currentUser, bedCount);
 
         if (claimed) {
             //the call was successful
