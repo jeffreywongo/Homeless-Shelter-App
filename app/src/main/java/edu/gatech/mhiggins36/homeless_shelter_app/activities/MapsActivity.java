@@ -10,6 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
@@ -42,8 +44,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        ArrayList<String> shelterNames = getIntent().getStringArrayListExtra("shelterNameList");
+        ArrayList<Shelter> shelters = new ArrayList<>();
+        for (String name : shelterNames) {
+            shelters.add(ShelterManager.shelterMap.get(name));
+        }
+
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        for (Shelter s: ShelterManager.shelterMap.values()) {
+        for (Shelter s: shelters) {
             LatLng loc = new LatLng(s.getLatitude(), s.getLongitude());
             mMap.addMarker(new MarkerOptions().position(loc).title(s.getName()).snippet(s.getPhoneNumber()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));

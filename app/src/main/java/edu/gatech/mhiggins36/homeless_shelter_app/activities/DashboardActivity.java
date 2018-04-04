@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
     Button logoutButton;
     TextView userTypeMessage;
     ListView shelterList;
+    ArrayList<String> shelterNameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
         // list all shelters initially
-        listShelters(null, "anyone", "anyone");
+        shelterNameList = listShelters(null, "anyone", "anyone");
 
         Intent intent = getIntent();
         // check which intent is being handled with this
@@ -71,10 +73,10 @@ public class DashboardActivity extends AppCompatActivity {
             // if search bar used then disregard spinner selections
             if (name != null && name.trim().length() != 0) {
                 Log.d("Dash", "called with " + name);
-                listShelters(name, null, null);
+                shelterNameList = listShelters(name, null, null);
             } else {
                 Log.d("Dash", "Filtering logic used");
-                listShelters(null, age, gender);
+                shelterNameList = listShelters(null, age, gender);
             }
         }
         //TODO make this server compatible
@@ -87,9 +89,9 @@ public class DashboardActivity extends AppCompatActivity {
     called on create of the dashboard
     displays all the shelters on the dashboard
      */
-    private void listShelters(String name, String age, String gender) {
+    private ArrayList<String> listShelters(String name, String age, String gender) {
         HashMap<String, Shelter> shelters = ShelterManager.shelterMap;
-        List<String> shelterNames = new ArrayList<>();
+        ArrayList<String> shelterNames = new ArrayList<>();
         String anyone = "anyone";
         // if searched by name
         if (name != null) {
@@ -134,6 +136,7 @@ public class DashboardActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
+        return shelterNames;
     }
 
 
@@ -142,5 +145,14 @@ public class DashboardActivity extends AppCompatActivity {
         startActivity(logoutIntent);
     }
 
+
+    public void mapper(View view) {
+        Intent mapIntent = new Intent(this, MapsActivity.class);
+        for (String s : shelterNameList) {
+            Log.d("shelterNames", s);
+        }
+        mapIntent.putStringArrayListExtra("shelterNameList", shelterNameList);
+        startActivity(mapIntent);
+    }
 
 }
