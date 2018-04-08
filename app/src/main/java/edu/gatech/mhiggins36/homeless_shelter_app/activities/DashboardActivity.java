@@ -71,7 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
             String age = intent.getStringExtra("age").toLowerCase();
             String gender = intent.getStringExtra("gender").toLowerCase();
             // if search bar used then disregard spinner selections
-            if (name != null && name.trim().length() != 0) {
+            if (!name.isEmpty() && name.trim().length() != 0) {
                 Log.d("Dash", "called with " + name);
                 shelterNameList = listShelters(name, null, null);
             } else {
@@ -133,7 +133,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
         Log.d("Dash", shelterNames.toString());
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
         return shelterNames;

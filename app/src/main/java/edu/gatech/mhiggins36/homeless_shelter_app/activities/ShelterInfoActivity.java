@@ -80,7 +80,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         Log.d(TAG, currentUser.getJwt());
         int bedCount = 1;
         try {
-            if (!numBeds.getText().equals("")) {
+            if (!numBeds.getText().toString().equals("")) {
                 bedCount = Integer.parseInt(numBeds.getText().toString());
             }
         } catch (Throwable e) {

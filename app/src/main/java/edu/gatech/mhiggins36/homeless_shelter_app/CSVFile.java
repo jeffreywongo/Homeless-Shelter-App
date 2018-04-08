@@ -1,6 +1,6 @@
 package edu.gatech.mhiggins36.homeless_shelter_app;
 
-/**
+/*
  * Created by mhigg on 3/1/2018.
  */
 
