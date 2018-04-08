@@ -29,9 +29,13 @@ public class ShelterInfoActivity extends AppCompatActivity {
     private final String TAG = "ShelterInfo";
 
     //boolean to tell if the claim server call was successful
-    public static boolean claimed = false;
-    public static boolean unclaimed = false;
+    public static boolean claimed;
+    public static boolean unclaimed;
 
+    /**
+     * initializes instance fields
+     * @param savedInstanceState generic state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,12 @@ public class ShelterInfoActivity extends AppCompatActivity {
         claimStatus.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * onClick method that gets the current shelter, and current user and makes a call to
+     * claim a certain amount of beds . If that call was successful then it will update the
+     * view with the correct info. If it was not successful it will tell the user
+     * @param view generic view
+     */
     public void claim(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
         String name = shelter.getName();
@@ -75,8 +85,6 @@ public class ShelterInfoActivity extends AppCompatActivity {
         // this is final bcs it's being accessed from inner class below
         final User currentUser = gson.fromJson(json, User.class);
         int userId = currentUser.getUserId();
-        Log.d(TAG, ""+userId);
-        Log.d(TAG, currentUser.getJwt());
         int bedCount = 1;
         try {
             if (!numBeds.getText().toString().equals("")) {
@@ -98,8 +106,6 @@ public class ShelterInfoActivity extends AppCompatActivity {
             capacity.setText("" + shelter.getVacancies());
             claimStatus.setText("claim successful");
             claimStatus.setVisibility(View.VISIBLE);
-//            finish();
-//            startActivity(getIntent());
         } else {
             //call was unsuccessful
             claimStatus.setText("claim unsuccessful");
@@ -108,6 +114,10 @@ public class ShelterInfoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param view generic view
+     */
     public void clearReservation(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
         String name = shelter.getName();

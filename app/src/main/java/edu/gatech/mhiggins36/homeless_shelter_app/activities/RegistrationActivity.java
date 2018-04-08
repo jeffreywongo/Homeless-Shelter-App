@@ -12,6 +12,9 @@ import android.widget.TextView;
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
+/**
+ * activity for registration
+ */
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText emailField;
@@ -22,6 +25,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private Spinner userTypeSpinner;
     static boolean register;
 
+    /**
+     * initializes instance fields
+     * @param savedInstanceState generic state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +49,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * checks that all of the text views are satisfactory i.e. not blank
+     * then makes a call to register a user based on the text view data
+     * if the register boolean is set to true then that call was successful and we send the  user
+     * to the search activity
+     * if that call is not successful then register will be false and we will
+     * set the error text to tell the user that something was wrong
+     * @param view generic view
+     */
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
 
@@ -95,14 +111,24 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * sets the register boolean to true, signaling that the api call was successful
+     */
     public static void successfulRegistration() {
         register = true;
     }
 
+    /**
+     * sets the register boolean to false signalling that the api was unsuccessful
+     */
     public static void failedRegistration() {
         register = false;
     }
 
+    /**
+     * sends the user to the main page
+     * @param view generic view
+     */
     public void cancelRegistration(View view) {
         Intent mainIntent = new Intent(this, MainActivity.class);
         startActivity(mainIntent);

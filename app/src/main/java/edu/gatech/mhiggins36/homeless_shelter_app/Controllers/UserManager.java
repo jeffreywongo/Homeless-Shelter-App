@@ -30,6 +30,14 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class UserManager {
 
+    /**
+     * makes an API call to the server that gives the username and password as parameters
+     * on an error response calls the method in LoginActivity to signal a failed login. Otherwise
+     * signals a successful login in LoginActivity after parsing the JSON response
+     * @param context
+     * @param username
+     * @param password
+     */
     public static void checkLogin(final Context context, final String username,
                                         final String password) {
         String url = "http://shelter.lmc.gatech.edu/user/login";
@@ -43,11 +51,7 @@ public class UserManager {
                             JSONObject obj = new JSONObject(response);
                             int userId = obj.getInt("id");
                             String token = obj.getString("token");
-                            // todo: make server send full user info in response
-                            // todo: or query databse for user info in the future
-                            /*
-                            Get the currentUser from the SharedPreference
-                             */
+                            //Get the currentUser from the SharedPreference
                             SharedPreferences pref = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor prefsEditor = pref.edit();
                             Gson gson = new Gson();
@@ -62,7 +66,7 @@ public class UserManager {
                             //sets the login boolean to true in LoginActivity
                             LoginActivity.successfulLogin();
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            LoginActivity.failedLogin();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -71,7 +75,6 @@ public class UserManager {
                 // Error handling
                 //sets login boolean to false
                 LoginActivity.failedLogin();
-                Log.d("login server error: ", "error");
             }
         }) {
             @Override
@@ -87,9 +90,16 @@ public class UserManager {
 
     }
 
-    public static void register(final Context context, final String name, final String email, final String pass,
-                                final String userType) {
-        //ToDo get the specific path for this call
+    /**
+     * makes an API call to the server to make a new user and passes in the neccessary requirements
+     * @param context
+     * @param name
+     * @param email
+     * @param pass
+     * @param userType
+     */
+    public static void register(final Context context, final String name, final String email,
+                                final String pass, final String userType) {
         String url = "http://shelter.lmc.gatech.edu/user/register";
 
         // Request a string response
