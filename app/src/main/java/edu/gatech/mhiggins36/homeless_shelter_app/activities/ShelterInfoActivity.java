@@ -1,6 +1,5 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,7 +65,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         claimStatus.setVisibility(View.INVISIBLE);
     }
 
-    protected void claim(View view) {
+    public void claim(View view) {
         Shelter shelter = (Shelter) getIntent().getExtras().get("Shelter");
         String name = shelter.getName();
         int id = shelter.getUniqueKey();
