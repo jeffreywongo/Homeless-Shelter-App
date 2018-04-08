@@ -1,12 +1,8 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.Controllers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -17,7 +13,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +20,6 @@ import java.util.Map;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.LoginActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.RegistrationActivity;
-import edu.gatech.mhiggins36.homeless_shelter_app.activities.SearchActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -77,7 +71,7 @@ public class UserManager {
                 // Error handling
                 //sets login boolean to false
                 LoginActivity.failedLogin();
-                Log.d("login server error: ", error.networkResponse.toString());
+                Log.d("login server error: ", "error");
             }
         }) {
             @Override

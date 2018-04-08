@@ -1,7 +1,6 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.Controllers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -17,13 +16,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
 import edu.gatech.mhiggins36.homeless_shelter_app.activities.ShelterInfoActivity;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by mhigg on 4/1/2018.

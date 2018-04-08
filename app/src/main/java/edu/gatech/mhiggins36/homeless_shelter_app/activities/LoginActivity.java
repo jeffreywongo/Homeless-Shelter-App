@@ -1,32 +1,14 @@
 package edu.gatech.mhiggins36.homeless_shelter_app.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
-import edu.gatech.mhiggins36.homeless_shelter_app.VolleySingleton;
-import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 /**
  * Checks login credentials
