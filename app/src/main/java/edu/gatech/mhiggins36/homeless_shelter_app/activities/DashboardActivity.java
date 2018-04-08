@@ -59,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
             String age = intent.getStringExtra("age").toLowerCase();
             String gender = intent.getStringExtra("gender").toLowerCase();
             // if search bar used then disregard spinner selections
-            if (name != null && name.trim().length() != 0) {
+            if (!name.trim().isEmpty()) {
                 Log.d("Dash", "called with " + name);
                 shelterNameList = listShelters(name, null, null);
             } else {
@@ -67,10 +67,6 @@ public class DashboardActivity extends AppCompatActivity {
                 shelterNameList = listShelters(null, age, gender);
             }
         }
-        //TODO make this server compatible
-//        String user = intent.getStringExtra("userType");
-//        String userType = Controller.userMap.get(user).getUserType();
-//        userTypeMessage.setText("Logged in as a(n) " + userType);
     }
 
     /*

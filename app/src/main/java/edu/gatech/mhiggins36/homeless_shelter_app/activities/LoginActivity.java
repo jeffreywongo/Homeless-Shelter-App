@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
 /**
@@ -18,10 +19,10 @@ public class LoginActivity extends AppCompatActivity {
 
     //    private static final String usernameTest = "user";
 //    private static final String passwordTest = "pass";
-    static EditText userField;
+    EditText userField;
     EditText passField;
-    static TextView incorrectText;
-    static boolean login = false;
+    TextView incorrectText;
+    static boolean login;
 
 
     @Override
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         //UserManager.checkLogin(getApplicationContext(), username, password);
         //TODO make sure that we are actually handling server errors properly
 
-        edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.checkLogin(getApplicationContext(), username, password);
+        UserManager.checkLogin(getApplicationContext(), username, password);
         if (login) {
             Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
             searchIntent.putExtra("Sender", "LoginActivity");

@@ -9,17 +9,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText emailField;
-    EditText nameField;
-    EditText passField;
-    EditText passField2;
-    TextView errorMessageReg;
-    Spinner userTypeSpinner;
-    static boolean register = false;
+    private EditText emailField;
+    private EditText nameField;
+    private EditText passField;
+    private EditText passField2;
+    private TextView errorMessageReg;
+    private Spinner userTypeSpinner;
+    static boolean register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void register(View view) {
         //if the passwords do not match then reveal red text saying so
-        //TODO talk about when we want to trim and when not
 
         if (nameField.getText().toString().trim().equals("")) {
             errorMessageReg.setText("Name Is Empty");
@@ -79,7 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
         check that email is a valid email form
         check that all fields are filled in
         */
-            edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.register(getApplicationContext(),
+            UserManager.register(getApplicationContext(),
                     nameField.getText().toString().trim(), emailField.getText().toString().trim(), passField.getText().toString(),
                     userTypeSpinner.getSelectedItem().toString());
             if (register) {

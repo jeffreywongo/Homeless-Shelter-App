@@ -54,4 +54,5 @@
         <item>"Other"</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name = "apibase">api.shelter.lmc.gatech.edu</string>
 </resources>

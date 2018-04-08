@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
-import edu.gatech.mhiggins36.homeless_shelter_app.activities.DashboardActivity;
 
 public class SearchActivity extends AppCompatActivity {
 

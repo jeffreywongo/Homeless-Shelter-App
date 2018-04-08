@@ -121,7 +121,7 @@ public class ShelterManager {
     }
 
     public static void clearBed(Context context, final User currentUser, final int shelterID) {
-        String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID;
+        String uri = "http://shelter.lmc.gatech.edu:3000/user/checkOut/" + shelterID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
                 new Response.Listener<String>() {

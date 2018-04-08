@@ -17,15 +17,15 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 public class ShelterInfoActivity extends AppCompatActivity {
 
-    TextView name;
-    TextView address;
-    TextView phoneNumber;
-    TextView restrictions;
-    TextView specialNotes;
-    TextView capacity;
-    TextView latlong;
-    TextView claimStatus;
-    EditText numBeds;
+    private TextView name;
+    private TextView address;
+    private TextView phoneNumber;
+    private TextView restrictions;
+    private TextView specialNotes;
+    private TextView capacity;
+    private TextView latlong;
+    private TextView claimStatus;
+    private EditText numBeds;
     private final String TAG = "ShelterInfo";
 
     //boolean to tell if the claim server call was successful
