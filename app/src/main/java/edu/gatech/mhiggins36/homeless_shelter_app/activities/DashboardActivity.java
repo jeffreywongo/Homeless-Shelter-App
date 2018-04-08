@@ -24,11 +24,15 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    Button logoutButton;
-    TextView userTypeMessage;
-    ListView shelterList;
-    ArrayList<String> shelterNameList;
+    private Button logoutButton;
+    private TextView userTypeMessage;
+    private ListView shelterList;
+    private ArrayList<String> shelterNameList;
 
+    /**
+     * initializes instance variables from layout
+     * @param savedInstanceState generic state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +64,20 @@ public class DashboardActivity extends AppCompatActivity {
             String gender = intent.getStringExtra("gender").toLowerCase();
             // if search bar used then disregard spinner selections
             if (!name.trim().isEmpty()) {
-                Log.d("Dash", "called with " + name);
                 shelterNameList = listShelters(name, null, null);
             } else {
-                Log.d("Dash", "Filtering logic used");
                 shelterNameList = listShelters(null, age, gender);
             }
         }
     }
 
-    /*
-    called on create of the dashboard
-    displays all the shelters on the dashboard
+    /**
+     * searches all shelters and filters based on parameters and returns the list of shelters
+     * that match those parameters
+     * @param name name of the shelter being searched. null if not specified
+     * @param age the age to filter shelters by
+     * @param gender the gender to filter shelters by
+     * @return an array of all the shelters that matched the searching parameters
      */
     private ArrayList<String> listShelters(String name, String age, String gender) {
         HashMap<String, Shelter> shelters = ShelterManager.shelterMap;
@@ -116,20 +122,27 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
         }
-        Log.d("Dash", shelterNames.toString());
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_item,
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
         return shelterNames;
     }
 
 
+    /**
+     * sends the user to the main screen
+     * @param view generic view
+     */
     public void logout(View view) {
         Intent logoutIntent = new Intent(this, MainActivity.class);
         startActivity(logoutIntent);
     }
 
 
+    /**
+     * sends to map activity and adds the filtered shelter list to the extra
+     * @param view generic view
+     */
     public void mapper(View view) {
         Intent mapIntent = new Intent(this, MapsActivity.class);
         for (String s : shelterNameList) {
