@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
@@ -19,9 +21,9 @@ public class LoginActivity extends AppCompatActivity {
 
     //    private static final String usernameTest = "user";
 //    private static final String passwordTest = "pass";
-    EditText userField;
-    EditText passField;
-    TextView incorrectText;
+    private EditText userField;
+    private EditText passField;
+    private TextView incorrectText;
     static boolean login;
 
 
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         passField = findViewById(R.id.passwordField);
         incorrectText = findViewById(R.id.incorrectCred);
         incorrectText.setVisibility(View.INVISIBLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     /*
@@ -45,10 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
-    listener for sign in button
+    /**
+     * Checks and validates the credentials
+     * @param view this is required by android so...
      */
-    public void checkCredentials(View view) {
+    public void checkCredentials(View view) { // we need view because android makes us
         String username = userField.getText().toString().trim();
         String password = passField.getText().toString();
         //UserManager.checkLogin(getApplicationContext(), username, password);
@@ -68,10 +71,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * checks if login was successful
+     */
     public static void successfulLogin() {
        login = true;
     }
 
+    /**
+     * checks if login was
+     */
     public static void failedLogin() {
 
         login = false;

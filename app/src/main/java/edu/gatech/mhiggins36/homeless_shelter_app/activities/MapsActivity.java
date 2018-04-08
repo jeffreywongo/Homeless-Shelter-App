@@ -11,14 +11,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +41,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        ArrayList<String> shelterNames = getIntent().getStringArrayListExtra("shelterNameList");
-        ArrayList<Shelter> shelters = new ArrayList<>();
-        for (String name : shelterNames) {
-            shelters.add(ShelterManager.shelterMap.get(name));
-        }
-
+        GoogleMap mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        for (Shelter s: shelters) {
+        List<String> shelterNames = getIntent().getStringArrayListExtra("shelterNameList");
+        for (String name : shelterNames) {
+            Shelter s = ShelterManager.shelterMap.get(name);
             LatLng loc = new LatLng(s.getLatitude(), s.getLongitude());
             mMap.addMarker(new MarkerOptions().position(loc).title(s.getName()).snippet(s.getPhoneNumber()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
