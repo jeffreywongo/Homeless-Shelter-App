@@ -52,13 +52,13 @@ public class ShelterManager {
                                 int capacity = shelter.getInt("capacity");
                                 int vacancies = shelter.getInt("vacancies");
                                 String restrictions = shelter.getString("restrictions");
-                                float lattitude = (float)shelter.getDouble("latitude");
+                                float latitude = (float)shelter.getDouble("latitude");
                                 float longitude = (float)shelter.getDouble("longitude");
                                 String address = shelter.getString("address");
                                 String phone = shelter.getString("phone");
                                 String description = shelter.getString("description");
                                 shelterMap.put(name, new Shelter(id, name, capacity, vacancies,
-                                        restrictions, longitude, lattitude, address, description, phone));
+                                        restrictions, longitude, latitude, address, description, phone));
 
                             }
                         }catch (JSONException e){
