@@ -19,6 +19,19 @@ public class Shelter implements Parcelable{
     private String specialNotes;
     private String phoneNumber;
 
+    /**
+     * shelter constructor
+     * @param uniqueKey unique id
+     * @param name name of the shelter
+     * @param capacity number of beds that shelter can hold
+     * @param vacancies number of beds available
+     * @param restrictions sentence describing the shelter's restricitons
+     * @param longitude location of shelter
+     * @param latitude location of shelter
+     * @param address address of the shelter
+     * @param specialNotes notes for the shelter
+     * @param phoneNumber phone number of shelter
+     */
     public Shelter(int uniqueKey, String name, int capacity, int vacancies, String restrictions,
                    float longitude, float latitude, String address, String specialNotes,
                    String phoneNumber) {
@@ -46,10 +59,18 @@ public class Shelter implements Parcelable{
         }
     };
 
+    /**
+     *
+     * @return the unique id of shelter
+     */
     public int getUniqueKey() {
         return uniqueKey;
     }
 
+    /**
+     *
+     * @param uniqueKey unique id of shelter
+     */
     public void setUniqueKey(int uniqueKey) {
         this.uniqueKey = uniqueKey;
     }
@@ -127,6 +148,11 @@ public class Shelter implements Parcelable{
         return 0;
     }
 
+    /**
+     *
+     * @param parcel
+     * @param i
+     */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(this.uniqueKey);

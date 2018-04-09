@@ -10,6 +10,9 @@ import android.widget.Spinner;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
+/**
+ * activity for the search page
+ */
 public class SearchActivity extends AppCompatActivity {
 
     private EditText nameSearch;
@@ -17,6 +20,10 @@ public class SearchActivity extends AppCompatActivity {
     private Spinner genderSpinner;
 
 
+    /**
+     * initializes instance fields
+     * @param savedInstanceState generic instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,11 @@ public class SearchActivity extends AppCompatActivity {
         genderSpinner.setAdapter(genderSpinnerAdapter);
     }
 
+    /**
+     * onClick Method that gets all the info from the textviews and sends the user to the dashboard
+     * and sends the data to be searched with, with that call
+     * @param view generic view
+     */
     public void search(View view) {
         Intent dashboardIntent = new Intent(this, DashboardActivity.class);
         Intent intent = getIntent();
