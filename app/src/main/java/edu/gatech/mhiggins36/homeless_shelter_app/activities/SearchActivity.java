@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
 
@@ -35,12 +36,12 @@ public class SearchActivity extends AppCompatActivity {
         // populate the spinners
         // create adapter for ageSpinner
         String[] ageSpinnerElems = getResources().getStringArray(R.array.shelterAge);
-        ArrayAdapter<String> ageSpinnerAdapter = new ArrayAdapter<>(this,
+        SpinnerAdapter ageSpinnerAdapter = new ArrayAdapter<>(this,
                  android.R.layout.simple_spinner_item, ageSpinnerElems);
         ageSpinner.setAdapter(ageSpinnerAdapter);
         // create adapter for genderSpinner
         String[] genderSpinnerElems = getResources().getStringArray(R.array.shelterGenders);
-        ArrayAdapter<String> genderSpinnerAdapter = new ArrayAdapter<>(this,
+        SpinnerAdapter genderSpinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, genderSpinnerElems);
         genderSpinner.setAdapter(genderSpinnerAdapter);
     }
