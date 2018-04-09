@@ -14,8 +14,6 @@ import edu.gatech.mhiggins36.homeless_shelter_app.R;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private Button loginButton;
-    private Button registerButton;
 
     /**
      * initializes instance buttons and creates the shelter map
@@ -26,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ShelterManager.createShelterMap(getApplicationContext());
-        loginButton = findViewById(R.id.loginButton);
-        registerButton = findViewById(R.id.registerButton);
-
     }
 
     /**

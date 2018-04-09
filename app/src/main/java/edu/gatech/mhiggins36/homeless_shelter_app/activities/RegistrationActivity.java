@@ -23,7 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText passField2;
     private TextView errorMessageReg;
     private Spinner userTypeSpinner;
-    static boolean register;
+    private static boolean register;
 
     /**
      * initializes instance fields
@@ -59,36 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
      * @param view generic view
      */
     public void register(View view) {
-        //if the passwords do not match then reveal red text saying so
-
-        if (nameField.getText().toString().trim().equals("")) {
-            errorMessageReg.setText("Name Is Empty");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (emailField.getText().toString().trim().equals("")) {
-            errorMessageReg.setText("Email Is Empty");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
-        //checks if the email is in an email format
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailField.getText().toString().trim()).matches()) {
-            errorMessageReg.setText("Email format is not valid");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (passField.getText().toString().equals("")) {
-            errorMessageReg.setText("No Password Entered");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (passField2.getText().toString().equals("")) {
-            errorMessageReg.setText("Must Re-Enter Password");
-            errorMessageReg.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
-            errorMessageReg.setVisibility(View.VISIBLE);
+        if (checkRegistrationErrors(view)) {
             return;
         }
         /*
@@ -96,7 +67,8 @@ public class RegistrationActivity extends AppCompatActivity {
         check that all fields are filled in
         */
             UserManager.register(getApplicationContext(),
-                    nameField.getText().toString().trim(), emailField.getText().toString().trim(), passField.getText().toString(),
+                    nameField.getText().toString().trim(), emailField.getText()
+                            .toString().trim(), passField.getText().toString(),
                     userTypeSpinner.getSelectedItem().toString());
             if (register) {
                 Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -109,6 +81,47 @@ public class RegistrationActivity extends AppCompatActivity {
             errorMessageReg.setVisibility(View.VISIBLE);
             }
 
+    }
+
+    /**
+     * contains logic for checking issues with registration
+     * @param view generic view
+     * @return whether or not there is an error
+     */
+    private boolean checkRegistrationErrors(View view) {
+        if ("".equals(nameField.getText().toString().trim())) {
+            errorMessageReg.setText("Name Is Empty");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if ("".equals(emailField.getText().toString().trim())) {
+            errorMessageReg.setText("Email Is Empty");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        //checks if the email is in an email format
+        if (!android.util.Patterns.EMAIL_ADDRESS
+                .matcher(emailField.getText().toString().trim()).matches()) {
+            errorMessageReg.setText("Email format is not valid");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if ("".equals(passField.getText().toString())) {
+            errorMessageReg.setText("No Password Entered");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if ("".equals(passField2.getText().toString())) {
+            errorMessageReg.setText("Must Re-Enter Password");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        if (!(passField.getText().toString().equals(passField2.getText().toString()))) {
+            errorMessageReg.setText("Passwords do not match");
+            errorMessageReg.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return false;
     }
 
     /**

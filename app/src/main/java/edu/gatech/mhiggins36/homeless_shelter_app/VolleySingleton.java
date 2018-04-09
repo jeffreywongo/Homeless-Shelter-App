@@ -8,11 +8,12 @@ import com.android.volley.toolbox.Volley;
 
 /**
  * Created by mhigg on 3/26/2018.
+ * volley singleton class to help make API calls
  */
 
 
 
-public class VolleySingleton {
+public final class VolleySingleton {
     private static VolleySingleton mInstance;
     private RequestQueue mRequestQueue;
     private static Context mCtx;
@@ -22,6 +23,11 @@ public class VolleySingleton {
         mRequestQueue = getRequestQueue();
     }
 
+    /**
+     *
+     * @param context current context when called
+     * @return returns a VolleySingleton class
+     */
     public static synchronized VolleySingleton getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new VolleySingleton(context);
@@ -29,7 +35,7 @@ public class VolleySingleton {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
@@ -38,6 +44,11 @@ public class VolleySingleton {
         return mRequestQueue;
     }
 
+    /**
+     *
+     * @param req the request to add
+     * @param <T> generic data
+     */
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }

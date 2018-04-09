@@ -10,7 +10,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
@@ -21,8 +20,6 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
  * activity that displays the map
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private GoogleMap mMap;
 
     /**
      * sets up map
@@ -47,16 +44,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
-     * @param googleMap the google map
+     * @param mMap the google map
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap mMap) {
         mMap.getUiSettings().setZoomControlsEnabled(true);
         List<String> shelterNames = getIntent().getStringArrayListExtra("shelterNameList");
         for (String name : shelterNames) {
             Shelter s = ShelterManager.shelterMap.get(name);
             LatLng loc = new LatLng(s.getLatitude(), s.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(s.getName()).snippet(s.getPhoneNumber()));
+            mMap.addMarker(new MarkerOptions().position(loc).title(s.getName())
+                    .snippet(s.getPhoneNumber()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
     }
