@@ -91,14 +91,14 @@ public class ShelterManager {
                             int vacancies = shelter.getInt("vacancies");
                             shelterMap.get(name).setVacancies(vacancies);
                         } catch (Exception e) {
-                            ShelterInfoActivity.claimed = false;
+                            ShelterInfoActivity.setClaimed(false);
                         }
-                        ShelterInfoActivity.claimed = true;
+                        ShelterInfoActivity.setClaimed(true);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ShelterInfoActivity.claimed = false;
+                ShelterInfoActivity.setClaimed(false);
             }
         }) {
             @Override
@@ -133,15 +133,15 @@ public class ShelterManager {
                             int vacancies = shelter.getInt("vacancies");
                             shelterMap.get(name).setVacancies(vacancies);
                         } catch (Exception e) {
-                            ShelterInfoActivity.unclaimed = false;
+                            ShelterInfoActivity.setUnclaimed(false);
                         }
 
-                        ShelterInfoActivity.unclaimed = true;
+                        ShelterInfoActivity.setUnclaimed(true);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ShelterInfoActivity.unclaimed = false;
+                ShelterInfoActivity.setUnclaimed(false);
             }
         }) {
             @Override
