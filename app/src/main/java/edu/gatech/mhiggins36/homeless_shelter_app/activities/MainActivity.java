@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;

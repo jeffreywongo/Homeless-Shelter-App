@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -78,7 +77,7 @@ public class UserManager {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", username);
                 params.put("password", password);
@@ -91,7 +90,7 @@ public class UserManager {
     }
 
     /**
-     * makes an API call to the server to make a new user and passes in the neccessary requirements
+     * makes an API call to the server to make a new user and passes in the necessary requirements
      * @param context
      * @param name
      * @param email
@@ -144,7 +143,7 @@ public class UserManager {
 
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("email", email);
