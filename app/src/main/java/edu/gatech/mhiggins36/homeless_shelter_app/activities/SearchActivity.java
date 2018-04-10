@@ -35,14 +35,14 @@ public class SearchActivity extends AppCompatActivity {
         genderSpinner = findViewById(R.id.genderSpinner);
         // populate the spinners
         // create adapter for ageSpinner
-        String[] ageSpinnerElems = getResources().getStringArray(R.array.shelterAge);
+        String[] ageSpinnerElements = getResources().getStringArray(R.array.shelterAge);
         SpinnerAdapter ageSpinnerAdapter = new ArrayAdapter<>(this,
-                 android.R.layout.simple_spinner_item, ageSpinnerElems);
+                 android.R.layout.simple_spinner_item, ageSpinnerElements);
         ageSpinner.setAdapter(ageSpinnerAdapter);
         // create adapter for genderSpinner
-        String[] genderSpinnerElems = getResources().getStringArray(R.array.shelterGenders);
+        String[] genderSpinnerElements = getResources().getStringArray(R.array.shelterGenders);
         SpinnerAdapter genderSpinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, genderSpinnerElems);
+                android.R.layout.simple_spinner_item, genderSpinnerElements);
         genderSpinner.setAdapter(genderSpinnerAdapter);
     }
 
