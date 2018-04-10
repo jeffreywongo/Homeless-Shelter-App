@@ -22,13 +22,17 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 
 /**
- * Created by mhigg on 4/1/2018.
+ * Controller used to interface with the server in order to access shelter data
  */
-
 public class ShelterManager {
 
-    public static HashMap<String, Shelter> shelterMap = new HashMap<>();
+    public static final Map<String, Shelter> shelterMap = new HashMap<>();
 
+    /**
+     * Creates full shelter map used for activities throughout app. It does this by making a request
+     * to the API and using the information retrieved
+     * @param context current state of the app
+     */
     public static void createShelterMap(Context context) {
         String url = "http://shelter.lmc.gatech.edu/shelters";
         Log.d("devin", "onResponse: start");
@@ -58,7 +62,8 @@ public class ShelterManager {
                                 String phone = shelter.getString("phone");
                                 String description = shelter.getString("description");
                                 shelterMap.put(name, new Shelter(id, name, capacity, vacancies,
-                                        restrictions, longitude, latitude, address, description, phone));
+                                        restrictions, longitude, latitude, address, description,
+                                        phone));
 
                             }
                         }catch (JSONException e){
@@ -71,7 +76,7 @@ public class ShelterManager {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Error handling
-                System.out.println("Something went wrong!");
+                Log.e("devin", error.getMessage());
                 error.printStackTrace();
 
             }
@@ -80,7 +85,15 @@ public class ShelterManager {
         VolleySingleton.getInstance(context).addToRequestQueue(arrayRequest);
     }
 
-    public static void claim(final Context context, String url, final User currentUser,final int bedCount) {
+    /**
+     * Handles the server side functionality of making a reservation at a shelter
+     * @param context current state of the app
+     * @param url uri used to make the API request
+     * @param currentUser user currently using the app
+     * @param bedCount number of beds current user wants to reserve
+     */
+    public static void claim(final Context context, String url, final User currentUser,
+                             final int bedCount) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
@@ -98,6 +111,7 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("devin", error.getMessage());
                 ShelterInfoActivity.setClaimed(false);
             }
         }) {
@@ -120,6 +134,12 @@ public class ShelterManager {
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
+    /**
+     * Handles the server side functionality of canceling a reservation at a shelter
+     * @param context current state of the app
+     * @param currentUser user currently using the app
+     * @param shelterID id of the shelter at which to cancel the reservation
+     */
     public static void clearBed(Context context, final User currentUser, final int shelterID) {
         String uri = "http://shelter.lmc.gatech.edu:3000/user/checkOut/" + shelterID;
 
@@ -141,6 +161,7 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("devin", error.getMessage());
                 ShelterInfoActivity.setUnclaimed(false);
             }
         }) {
