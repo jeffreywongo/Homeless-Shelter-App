@@ -3,7 +3,6 @@ package edu.gatech.mhiggins36.homeless_shelter_app.Controllers;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -102,7 +101,8 @@ public class ShelterManager {
                             JSONObject shelter = new JSONObject(response);
                             String name = shelter.getString("name");
                             int vacancies = shelter.getInt("vacancies");
-                            shelterMap.get(name).setVacancies(vacancies);
+                            Shelter mapShelter = shelterMap.get(name);
+                            mapShelter.setVacancies(vacancies);
                         } catch (Exception e) {
                             ShelterInfoActivity.setClaimed(false);
                         }
@@ -116,7 +116,7 @@ public class ShelterManager {
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 String jwt = currentUser.getJwt();
                 params.put("x-access-token", jwt);
@@ -124,7 +124,7 @@ public class ShelterManager {
             }
 
             @Override
-            public Map<String, String> getParams() throws AuthFailureError {
+            public Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("count", ""+ bedCount);
                 return params;
@@ -151,7 +151,8 @@ public class ShelterManager {
                             JSONObject shelter = new JSONObject(response);
                             String name = shelter.getString("name");
                             int vacancies = shelter.getInt("vacancies");
-                            shelterMap.get(name).setVacancies(vacancies);
+                            Shelter mapShelter = shelterMap.get(name);
+                            mapShelter.setVacancies(vacancies);
                         } catch (Exception e) {
                             ShelterInfoActivity.setUnclaimed(false);
                         }
@@ -166,7 +167,7 @@ public class ShelterManager {
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 String jwt = currentUser.getJwt();
                 params.put("x-access-token", jwt);

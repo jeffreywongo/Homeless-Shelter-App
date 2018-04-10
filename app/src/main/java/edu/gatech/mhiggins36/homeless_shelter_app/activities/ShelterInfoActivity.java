@@ -53,6 +53,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
             shelter = (Shelter) getIntent().getExtras().get("Shelter");
         }
 
+        assert shelter != null;
         String addressWithCommas = shelter.getAddress().replace('#',',');
         String notesWithCommas = shelter.getSpecialNotes().replace('#', ',');
         String restrictionsWithCommas = shelter.getRestrictions().replace('#',',');

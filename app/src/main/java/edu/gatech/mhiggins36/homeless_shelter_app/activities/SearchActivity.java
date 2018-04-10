@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     /**
-     * onClick Method that gets all the info from the textviews and sends the user to the dashboard
+     * onClick Method that gets all the info from the text views and sends the user to the dashboard
      * and sends the data to be searched with, with that call
      * @param view generic view
      */
