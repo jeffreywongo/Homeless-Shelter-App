@@ -14,10 +14,10 @@ public class User {
 
     /**
      *
-     * @param name
-     * @param email
-     * @param userType
-     * @param userId
+     * @param name of user
+     * @param email of user
+     * @param userType of user
+     * @param userId of user
      * @param jwt java web token
      */
     public User(String name, String email, String userType, int userId, String jwt) {
@@ -38,7 +38,7 @@ public class User {
 
     /**
      *
-     * @param name
+     * @param name of user
      */
     public void setName(String name) {
         this.name = name;
@@ -46,7 +46,7 @@ public class User {
 
     /**
      *
-     * @return
+     * @return email of user
      */
     public String getEmail() {
         return email;
@@ -54,7 +54,7 @@ public class User {
 
     /**
      *
-     * @param email
+     * @param email of user
      */
     public void setEmail(String email) {
         this.email = email;
@@ -62,7 +62,7 @@ public class User {
 
     /**
      *
-     * @return
+     * @return the user type
      */
     public String getUserType() {
         return userType;
@@ -70,7 +70,7 @@ public class User {
 
     /**
      *
-     * @param userType
+     * @param userType the user type
      */
     public void setUserType(String userType) {
         this.userType = userType;
@@ -78,7 +78,7 @@ public class User {
 
     /**
      *
-     * @return
+     * @return the user id
      */
     public int getUserId() {
         return userId;
@@ -86,7 +86,7 @@ public class User {
 
     /**
      *
-     * @param userId
+     * @param userId the user id
      */
     public void setUserId(int userId) {
         this.userId = userId;
@@ -94,7 +94,7 @@ public class User {
 
     /**
      *
-     * @return
+     * @return the jwt
      */
     public String getJwt() {
         return jwt;
@@ -102,7 +102,7 @@ public class User {
 
     /**
      *
-     * @param jwt
+     * @param jwt the jwt
      */
     public void setJwt(String jwt) {
         this.jwt = jwt;
