@@ -25,7 +25,7 @@ public class Shelter implements Parcelable{
      * @param name name of the shelter
      * @param capacity number of beds that shelter can hold
      * @param vacancies number of beds available
-     * @param restrictions sentence describing the shelter's restricitons
+     * @param restrictions sentence describing the shelter's restrictions
      * @param longitude location of shelter
      * @param latitude location of shelter
      * @param address address of the shelter
@@ -75,70 +75,142 @@ public class Shelter implements Parcelable{
         this.uniqueKey = uniqueKey;
     }
 
+    /**
+     * get name
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * set name
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * get capacity
+     * @return the capacity
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * set capacity
+     * @param capacity the capacity
+     */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
+    /**
+     * get vacancies
+     * @return the vacancies
+     */
     public int getVacancies() {return vacancies;}
 
+    /**
+     * set vacancies
+     * @param vacancies the vacancies
+     */
     public void setVacancies(int vacancies) {this.vacancies = vacancies;}
 
+    /**
+     * get restrictions
+     * @return the restrictions
+     */
     public String getRestrictions() {
         return restrictions;
     }
 
+    /**
+     * set restrictions
+     * @param restrictions the restrictions
+     */
     public void setRestrictions(String restrictions) {
         this.restrictions = restrictions;
     }
 
+    /**
+     * get longitude
+     * @return the longitude
+     */
     public float getLongitude() {
         return longitude;
     }
 
+    /**
+     * set longitude
+     * @param longitude the longitude
+     */
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * get latitude
+     * @return the latitude
+     */
     public float getLatitude() {
         return latitude;
     }
 
+    /**
+     * set latitude
+     * @param latitude the latitude
+     */
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * get address
+     * @return the address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * set address
+     * @param address the address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * get special notes
+     * @return the special notes
+     */
     public String getSpecialNotes() {
         return specialNotes;
     }
 
+    /**
+     * set special notes
+     * @param specialNotes the special notes
+     */
     public void setSpecialNotes(String specialNotes) {
         this.specialNotes = specialNotes;
     }
 
+    /**
+     * get phone number
+     * @return the phone number
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * set phone number
+     * @param phoneNumber the phone number
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -150,8 +222,8 @@ public class Shelter implements Parcelable{
 
     /**
      *
-     * @param parcel
-     * @param i
+     * @param parcel the parcel
+     * @param i the number
      */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
@@ -167,8 +239,11 @@ public class Shelter implements Parcelable{
         parcel.writeString(this.phoneNumber);
     }
 
-    // Parcelling part
-    public Shelter(Parcel in){
+    /**
+     * the parceling constructor?
+     * @param in idk fam
+     */
+    private Shelter(Parcel in){
         this.uniqueKey = in.readInt();
         this.name = in.readString();
         this.capacity = in.readInt();
