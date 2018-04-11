@@ -63,8 +63,9 @@ public class LoginActivity extends AppCompatActivity {
             searchIntent.putExtra("Sender", "LoginActivity");
             searchIntent.putExtra("userType", userField.getText().toString());
             // enables access to type of account
-            startActivity(searchIntent);
             incorrectText.setVisibility(View.INVISIBLE);
+            startActivity(searchIntent);
+//            incorrectText.setVisibility(View.INVISIBLE);
         } else {
             incorrectText.setVisibility(View.VISIBLE);
             incorrectText.setText("incorrect email or password");
