@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userField;
     private EditText passField;
     private TextView incorrectText;
-    private static boolean login;
+    static boolean login;
 
 
     @Override

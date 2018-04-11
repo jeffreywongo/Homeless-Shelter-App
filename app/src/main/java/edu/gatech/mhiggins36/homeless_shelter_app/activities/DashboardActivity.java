@@ -7,12 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
@@ -24,6 +24,8 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    private Button logoutButton;
+    private TextView userTypeMessage;
     private ListView shelterList;
     private ArrayList<String> shelterNameList;
 
@@ -35,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        userTypeMessage = findViewById(R.id.userType);
+        logoutButton = findViewById(R.id.logoutButton);
         shelterList = findViewById(R.id.shelterList);
         // set listener for if an item is clicked
         shelterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,7 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
                 TextView dataHolder = view.findViewById(R.id.listItem);
                 String shelterName = (String) dataHolder.getText();
                 Intent shelterInfoIntent = new Intent(getBaseContext(), ShelterInfoActivity.class);
-                // query shelters hash map and put the shelter in the intent
+                // query shelters hashmap and put the shelter in the intent
                 shelterInfoIntent.putExtra("Shelter", ShelterManager.shelterMap.get(shelterName));
                 startActivity(shelterInfoIntent);
             }
@@ -54,7 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // check which intent is being handled with this
         String sender = intent.getStringExtra("Sender");
-        if (("SearchActivity").equals(sender)) {
+        if (sender.equals("SearchActivity")) {
             String name = intent.getStringExtra("name").toLowerCase();
             String age = intent.getStringExtra("age").toLowerCase();
             String gender = intent.getStringExtra("gender").toLowerCase();
@@ -76,7 +80,7 @@ public class DashboardActivity extends AppCompatActivity {
      * @return an array of all the shelters that matched the searching parameters
      */
     private ArrayList<String> listShelters(String name, String age, String gender) {
-        Map<String, Shelter> shelters = ShelterManager.shelterMap;
+        HashMap<String, Shelter> shelters = ShelterManager.shelterMap;
         ArrayList<String> shelterNames = new ArrayList<>();
         String anyone = "anyone";
         // if searched by name
@@ -118,7 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
         }
-        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
         return shelterNames;
