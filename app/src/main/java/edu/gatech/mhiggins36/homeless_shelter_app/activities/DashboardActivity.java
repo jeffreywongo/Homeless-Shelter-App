@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
 import edu.gatech.mhiggins36.homeless_shelter_app.R;
@@ -80,7 +81,7 @@ public class DashboardActivity extends AppCompatActivity {
      * @return an array of all the shelters that matched the searching parameters
      */
     private ArrayList<String> listShelters(String name, String age, String gender) {
-        HashMap<String, Shelter> shelters = ShelterManager.shelterMap;
+        Map<String, Shelter> shelters = ShelterManager.shelterMap;
         ArrayList<String> shelterNames = new ArrayList<>();
         String anyone = "anyone";
         // if searched by name

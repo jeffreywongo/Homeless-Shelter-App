@@ -77,8 +77,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 // enables access to type of account
                 startActivity(searchIntent);
             } else {
-            errorMessageReg.setText("Email Entered Already In Use");
-            errorMessageReg.setVisibility(View.VISIBLE);
+                errorMessageReg.setText("Email Entered Already In Use");
+                errorMessageReg.setVisibility(View.VISIBLE);
             }
 
     }
