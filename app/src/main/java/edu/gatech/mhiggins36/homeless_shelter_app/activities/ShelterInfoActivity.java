@@ -116,7 +116,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         }
 
         String url = "http://shelter.lmc.gatech.edu/user/checkIn/"+ id;
-        ShelterManager.claim(getApplicationContext(), url, currentUser, bedCount);
+        ShelterManager.getInstance(getApplicationContext()).claim(url, currentUser, bedCount);
 
         if (claimed) {
             //the call was successful
@@ -148,7 +148,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         // this is final bcs it's being accessed from inner class below
         final User currentUser = gson.fromJson(json, User.class);
 
-        ShelterManager.clearBed(getApplicationContext(), currentUser, shelter.getUniqueKey());
+        ShelterManager.getInstance(getApplicationContext()).clearBed(currentUser, shelter.getUniqueKey());
         if (unclaimed) {
             //call was successful so update view
             //ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());
