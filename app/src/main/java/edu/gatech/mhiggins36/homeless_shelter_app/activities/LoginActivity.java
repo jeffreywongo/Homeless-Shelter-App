@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         //UserManager.checkLogin(getApplicationContext(), username, password);
         //TODO make sure that we are actually handling server errors properly
 
-        UserManager.checkLogin(getApplicationContext(), username, password);
+        UserManager.getInstance(getApplicationContext()).checkLogin(username, password);
         if (login) {
             Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
             searchIntent.putExtra("Sender", "LoginActivity");

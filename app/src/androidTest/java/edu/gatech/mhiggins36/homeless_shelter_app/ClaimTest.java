@@ -55,8 +55,7 @@ public class ClaimTest {
         //logs me in and sets me as the current user
         ShelterManager.createShelterMap(mActivityRule.getActivity().getApplicationContext());
         edu.gatech.mhiggins36.homeless_shelter_app.
-                Controllers.UserManager.checkLogin(mActivityRule.getActivity().getApplicationContext(),
-                "devin@gmail.com", "pass");
+                Controllers.UserManager.getInstance(InstrumentationRegistry.getTargetContext()).checkLogin("devin@gmail.com", "pass");
 
 
         //put 1 bed to be claimed

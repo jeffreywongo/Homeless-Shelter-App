@@ -50,8 +50,8 @@ public class UnclaimTest {
     public void checkUnclaim() {
         ShelterManager.createShelterMap(mActivityRule.getActivity().getApplicationContext());
         edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.
-                checkLogin(mActivityRule.getActivity().getApplicationContext(),
-                        "marcus@gatech.edu", "pass");
+                getInstance(InstrumentationRegistry.getTargetContext()).
+                checkLogin("marcus@gatech.edu", "pass");
         onView(withId(R.id.cancelBed)).perform(click());
         onView(withId(R.id.claimStatus)).check(matches(withText("clear unsuccessful")));
         onView(withId(R.id.numBeds)).perform(typeText("3"), closeSoftKeyboard());

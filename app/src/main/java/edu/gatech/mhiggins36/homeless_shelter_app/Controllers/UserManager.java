@@ -28,16 +28,27 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class UserManager {
 
+    private static UserManager mInstance;
+    private static Context cxt;
+
+    private UserManager(Context context) {
+        cxt = context;
+    }
+
+    public static synchronized UserManager getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new UserManager(context);
+        }
+        return mInstance;
+    }
     /**
      * makes an API call to the server that gives the username and password as parameters
      * on an error response calls the method in LoginActivity to signal a failed login. Otherwise
      * signals a successful login in LoginActivity after parsing the JSON response
-     * @param context current state of the app
      * @param username entered username of person trying to login
      * @param password entered password of person trying to login
      */
-    public static void checkLogin(final Context context, final String username,
-                                        final String password) {
+    public void checkLogin(final String username, final String password) {
         String url = "http://shelter.lmc.gatech.edu/user/login";
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -50,7 +61,7 @@ public class UserManager {
                             int userId = obj.getInt("id");
                             String token = obj.getString("token");
                             //Get the currentUser from the SharedPreference
-                            SharedPreferences pref = context.getSharedPreferences("myPrefs",
+                            SharedPreferences pref = cxt.getSharedPreferences("myPrefs",
                                     MODE_PRIVATE);
                             SharedPreferences.Editor prefsEditor = pref.edit();
                             Gson gson = new Gson();
@@ -85,20 +96,19 @@ public class UserManager {
             }
         };
         // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(cxt).addToRequestQueue(stringRequest);
 
     }
 
     /**
      * makes an API call to the server to make a new user and passes in the necessary requirements
-     * @param context the current state of the app
      * @param name the name of the person registering
      * @param email the email of the person registering
      * @param pass the password of the person registering
      * @param userType the user type of the person registering
      */
-    public static void register(final Context context, final String name, final String email,
-                                final String pass, final String userType) {
+    public void register(final String name, final String email, final String pass,
+                                final String userType) {
         String url = "http://shelter.lmc.gatech.edu/user/register";
 
         // Request a string response
@@ -123,7 +133,7 @@ public class UserManager {
                             closed. A SharedPreference saves it on the device and lets you access
                             it in any activity.
                              */
-                            SharedPreferences pref = context.getSharedPreferences("myPrefs",
+                            SharedPreferences pref = cxt.getSharedPreferences("myPrefs",
                                     MODE_PRIVATE);
                             SharedPreferences.Editor prefsEditor = pref.edit();
                             Gson gson = new Gson();
@@ -153,7 +163,7 @@ public class UserManager {
             }
         };
         // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(cxt).addToRequestQueue(stringRequest);
     }
 }
 
