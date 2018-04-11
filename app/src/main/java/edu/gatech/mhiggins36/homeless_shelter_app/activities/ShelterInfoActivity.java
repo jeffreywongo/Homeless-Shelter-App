@@ -29,6 +29,9 @@ public class ShelterInfoActivity extends AppCompatActivity {
     private static boolean claimed;
     private static boolean unclaimed;
 
+    //made it an instance variable so that I can make my test -devin
+    TextView shelterName;
+
     /**
      * initializes instance fields
      * @param savedInstanceState generic state
@@ -39,7 +42,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_info);
 
         //find all of the text views by ID
-        TextView name = findViewById(R.id.shelterName);
+        shelterName = findViewById(R.id.shelterName);
         TextView address = findViewById(R.id.address);
         TextView phoneNumber = findViewById(R.id.phoneNumber);
         TextView restrictions = findViewById(R.id.restrictions);
@@ -49,6 +52,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         claimStatus = findViewById(R.id.claimStatus);
         numBeds = findViewById(R.id.numBeds);
         //noinspection ConstantConditions
+
         if (getIntent().getExtras().containsKey("Shelter")) {
             shelter = (Shelter) getIntent().getExtras().get("Shelter");
         }
@@ -59,7 +63,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
         String restrictionsWithCommas = shelter.getRestrictions().replace('#',',');
         String gpsLocation = shelter.getLatitude() + "/" + shelter.getLongitude();
 
-        name.setText(shelter.getName());
+        shelterName.setText(shelter.getName());
         address.setText(addressWithCommas);
         phoneNumber.setText(shelter.getPhoneNumber());
         restrictions.setText(restrictionsWithCommas);
@@ -92,7 +96,9 @@ public class ShelterInfoActivity extends AppCompatActivity {
      * @param view generic view
      */
     public void claim(View view) {
-        String name = shelter.getName();
+        //changed to make my test -devin
+        String name = (String) shelterName.getText();
+
         int id = shelter.getUniqueKey();
         SharedPreferences pref = getSharedPreferences("myPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -151,11 +157,10 @@ public class ShelterInfoActivity extends AppCompatActivity {
             capacity.setText("" + shelter.getVacancies());
             claimStatus.setText("clear successful");
             claimStatus.setVisibility(View.VISIBLE);
-//            finish();
-//            startActivity(getIntent());
         } else {
             claimStatus.setText("clear unsuccessful");
             claimStatus.setVisibility(View.VISIBLE);
         }
     }
+
 }

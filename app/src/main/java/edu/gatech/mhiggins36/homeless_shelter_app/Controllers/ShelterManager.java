@@ -34,7 +34,6 @@ public class ShelterManager {
      */
     public static void createShelterMap(Context context) {
         String url = "http://shelter.lmc.gatech.edu/shelters";
-        Log.d("devin", "onResponse: start");
         // Request a string response
         StringRequest arrayRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -75,9 +74,7 @@ public class ShelterManager {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Error handling
-                Log.e("devin", error.getMessage());
                 error.printStackTrace();
-
             }
         });
         // Add the request to the queue
@@ -111,7 +108,6 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("devin", error.getMessage());
                 ShelterInfoActivity.setClaimed(false);
             }
         }) {
@@ -141,7 +137,7 @@ public class ShelterManager {
      * @param shelterID id of the shelter at which to cancel the reservation
      */
     public static void clearBed(Context context, final User currentUser, final int shelterID) {
-        String uri = "http://shelter.lmc.gatech.edu:3000/user/checkOut/" + shelterID;
+        String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
                 new Response.Listener<String>() {
@@ -162,7 +158,6 @@ public class ShelterManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("devin", error.getMessage());
                 ShelterInfoActivity.setUnclaimed(false);
             }
         }) {
