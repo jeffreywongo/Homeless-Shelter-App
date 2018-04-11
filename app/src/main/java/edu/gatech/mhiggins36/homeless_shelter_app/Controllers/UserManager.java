@@ -35,6 +35,11 @@ public class UserManager {
         cxt = context;
     }
 
+    /**
+     * makes a singleton instance of user manager
+     * @param context the current context of the application
+     * @return a singleton userManager
+     */
     public static synchronized UserManager getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new UserManager(context);

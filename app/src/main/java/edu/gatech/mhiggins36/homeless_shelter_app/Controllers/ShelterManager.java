@@ -33,6 +33,12 @@ public class ShelterManager {
         myContext = context;
     }
 
+
+    /**
+     * makes a singleton instance of shelter manager
+     * @param context the current context of the application
+     * @return a singleton shelterManager
+     */
     public static synchronized ShelterManager getInstance(Context context) {
         if (shelterManagerInstance == null) {
             shelterManagerInstance = new ShelterManager(context);

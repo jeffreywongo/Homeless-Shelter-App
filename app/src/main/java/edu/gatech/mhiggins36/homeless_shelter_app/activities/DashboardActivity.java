@@ -7,12 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import edu.gatech.mhiggins36.homeless_shelter_app.Controllers.ShelterManager;
@@ -25,8 +24,6 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.Shelter;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private Button logoutButton;
-    private TextView userTypeMessage;
     private ListView shelterList;
     private ArrayList<String> shelterNameList;
 
@@ -38,8 +35,6 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        userTypeMessage = findViewById(R.id.userType);
-        logoutButton = findViewById(R.id.logoutButton);
         shelterList = findViewById(R.id.shelterList);
         // set listener for if an item is clicked
         shelterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
      * @param gender the gender to filter shelters by
      * @return an array of all the shelters that matched the searching parameters
      */
-    private ArrayList<String> listShelters(String name, String age, String gender) {
+    private ArrayList<String> listShelters(CharSequence name, String age, String gender) {
         Map<String, Shelter> shelters = ShelterManager.shelterMap;
         ArrayList<String> shelterNames = new ArrayList<>();
         String anyone = "anyone";
@@ -123,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
         }
-        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
+        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.list_item,
                 R.id.listItem, shelterNames);
         shelterList.setAdapter(adapter);
         return shelterNames;

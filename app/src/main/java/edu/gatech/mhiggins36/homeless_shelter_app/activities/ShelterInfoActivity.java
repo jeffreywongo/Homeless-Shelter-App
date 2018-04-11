@@ -30,7 +30,7 @@ public class ShelterInfoActivity extends AppCompatActivity {
     private static boolean unclaimed;
 
     //made it an instance variable so that I can make my test -devin
-    TextView shelterName;
+    private TextView shelterName;
 
     /**
      * initializes instance fields
@@ -148,7 +148,8 @@ public class ShelterInfoActivity extends AppCompatActivity {
         // this is final bcs it's being accessed from inner class below
         final User currentUser = gson.fromJson(json, User.class);
 
-        ShelterManager.getInstance(getApplicationContext()).clearBed(currentUser, shelter.getUniqueKey());
+        ShelterManager.getInstance(getApplicationContext()).clearBed(currentUser,
+                shelter.getUniqueKey());
         if (unclaimed) {
             //call was successful so update view
             //ShelterManager.getShelterInfo(getApplicationContext(), shelter.getUniqueKey());

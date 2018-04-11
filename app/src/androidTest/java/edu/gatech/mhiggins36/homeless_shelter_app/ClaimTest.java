@@ -59,6 +59,14 @@ public class ClaimTest {
 
 
         //put 1 bed to be claimed
+        onView(withId(R.id.numBeds)).perform(typeText("not num"), closeSoftKeyboard());
+
+        //now click the bed claim button
+        onView(withId(R.id.bedClaim)).perform(click());
+        //check that claim was unsuccessful
+        onView(withId(R.id.claimStatus)).check(matches(withText("claim unsuccessful")));
+
+        //put 1 bed to be claimed
         onView(withId(R.id.numBeds)).perform(typeText("1"), closeSoftKeyboard());
 
         //now click the bed claim button
