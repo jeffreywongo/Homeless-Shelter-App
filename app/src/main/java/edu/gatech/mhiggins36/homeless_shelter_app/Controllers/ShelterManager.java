@@ -26,13 +26,25 @@ import edu.gatech.mhiggins36.homeless_shelter_app.models.User;
 public class ShelterManager {
 
     public static final Map<String, Shelter> shelterMap = new HashMap<>();
+    private static ShelterManager shelterManagerInstance;
+    private static Context myContext;
+
+    private ShelterManager(Context context) {
+        myContext = context;
+    }
+
+    public static synchronized ShelterManager getInstance(Context context) {
+        if (shelterManagerInstance == null) {
+            shelterManagerInstance = new ShelterManager(context);
+        }
+        return shelterManagerInstance;
+    }
 
     /**
      * Creates full shelter map used for activities throughout app. It does this by making a request
      * to the API and using the information retrieved
-     * @param context current state of the app
      */
-    public static void createShelterMap(Context context) {
+    public void createShelterMap() {
         String url = "http://shelter.lmc.gatech.edu/shelters";
         // Request a string response
         StringRequest arrayRequest = new StringRequest(Request.Method.GET, url,
@@ -78,18 +90,16 @@ public class ShelterManager {
             }
         });
         // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(arrayRequest);
+        VolleySingleton.getInstance(myContext).addToRequestQueue(arrayRequest);
     }
 
     /**
      * Handles the server side functionality of making a reservation at a shelter
-     * @param context current state of the app
      * @param url uri used to make the API request
      * @param currentUser user currently using the app
      * @param bedCount number of beds current user wants to reserve
      */
-    public static void claim(final Context context, String url, final User currentUser,
-                             final int bedCount) {
+    public void claim(String url, final User currentUser, final int bedCount) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
@@ -127,16 +137,15 @@ public class ShelterManager {
             }
         };
         // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(myContext).addToRequestQueue(stringRequest);
     }
 
     /**
      * Handles the server side functionality of canceling a reservation at a shelter
-     * @param context current state of the app
      * @param currentUser user currently using the app
      * @param shelterID id of the shelter at which to cancel the reservation
      */
-    public static void clearBed(Context context, final User currentUser, final int shelterID) {
+    public void clearBed(final User currentUser, final int shelterID) {
         String uri = "http://shelter.lmc.gatech.edu/user/checkOut/" + shelterID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, uri,
@@ -171,7 +180,7 @@ public class ShelterManager {
         };
 
         // Add the request to the queue
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(myContext).addToRequestQueue(stringRequest);
     }
 
 
