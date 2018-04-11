@@ -59,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // check which intent is being handled with this
         String sender = intent.getStringExtra("Sender");
-        if (sender.equals("SearchActivity")) {
+        if ("SearchActivity".equals(sender)) {
             String name = intent.getStringExtra("name").toLowerCase();
             String age = intent.getStringExtra("age").toLowerCase();
             String gender = intent.getStringExtra("gender").toLowerCase();

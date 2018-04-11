@@ -53,7 +53,7 @@ public class ClaimTest {
     @Test
     public void checkClaim() {
         //logs me in and sets me as the current user
-        ShelterManager.createShelterMap(mActivityRule.getActivity().getApplicationContext());
+        ShelterManager.getInstance(mActivityRule.getActivity().getApplicationContext()).createShelterMap();
         edu.gatech.mhiggins36.homeless_shelter_app.
                 Controllers.UserManager.getInstance(InstrumentationRegistry.getTargetContext()).checkLogin("devin@gmail.com", "pass");
 

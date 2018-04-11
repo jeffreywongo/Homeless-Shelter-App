@@ -48,7 +48,8 @@ public class UnclaimTest {
 
     @Test
     public void checkUnclaim() {
-        ShelterManager.createShelterMap(mActivityRule.getActivity().getApplicationContext());
+        ShelterManager.getInstance(mActivityRule.getActivity().getApplicationContext())
+                .createShelterMap();
         edu.gatech.mhiggins36.homeless_shelter_app.Controllers.UserManager.
                 getInstance(InstrumentationRegistry.getTargetContext()).
                 checkLogin("marcus@gatech.edu", "pass");
