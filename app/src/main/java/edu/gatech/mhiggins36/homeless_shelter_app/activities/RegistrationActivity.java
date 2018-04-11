@@ -66,7 +66,8 @@ public class RegistrationActivity extends AppCompatActivity {
         check that email is a valid email form
         check that all fields are filled in
         */
-            UserManager.getInstance(getApplicationContext()).register(nameField.getText().toString().trim(), emailField.getText()
+            UserManager.getInstance(getApplicationContext()).register(nameField.getText().toString()
+                            .trim(), emailField.getText()
                             .toString().trim(), passField.getText().toString(),
                     userTypeSpinner.getSelectedItem().toString());
             if (register) {
