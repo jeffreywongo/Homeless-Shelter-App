@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Homeless-Shelter-App.iml" filepath="$PROJECT_DIR$/Homeless-Shelter-App.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShelterApp.iml" filepath="$PROJECT_DIR$/ShelterApp.iml" />
+      <module fileurl="file://C:\Users\marcu\Dropbox\Spring_2018\CS_2340\Homeless-Shelter-App\ShelterApp.iml" filepath="C:\Users\marcu\Dropbox\Spring_2018\CS_2340\Homeless-Shelter-App\ShelterApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
