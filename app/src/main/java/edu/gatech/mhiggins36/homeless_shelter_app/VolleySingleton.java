@@ -22,6 +22,11 @@ public class VolleySingleton {
         mRequestQueue = getRequestQueue();
     }
 
+    /**
+     * gets the singleton instance
+     * @param context the activity context.
+     * @return the instance of a volley singleton
+     */
     public static synchronized VolleySingleton getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new VolleySingleton(context);
@@ -29,6 +34,12 @@ public class VolleySingleton {
         return mInstance;
     }
 
+
+    /**
+     *
+     * Gets the http queue of requests
+     * @return the request queue
+     */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
@@ -37,7 +48,11 @@ public class VolleySingleton {
         }
         return mRequestQueue;
     }
-
+    /**
+     * adds a request to the queue of requests
+     * @param req the request to add
+     * @param <T> the type of request content to add
+     */
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }
