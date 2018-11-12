@@ -8,8 +8,10 @@ Looking back, there are some things I would have done differently but I don't re
 Instead, I left various comments detailing what I would have done.
 These comments will be in the format:
 
+```
 /*
  *------------------------------------------------
  * comment
  *------------------------------------------------
  */
+```
